@@ -9,16 +9,19 @@ export const User = function() {
   const loginForm = document.getElementById("login-form");
   const auth = firebase.auth;
 
-  function signIn() {
-    auth()
+  function signIn(myFunc) {
+    return auth()
       .signInWithEmailAndPassword(email.value, pw.value)
-      .then(function(user) {
+      .then(user => {
         console.log(user, "signed in!");
         userSignedIn();
+        //console.log("userDetails:", user);
+        return user;
       })
-      .catch(function(error) {
+      .catch(error => {
         console.log("sorry couldn't sign in -  Error: " + error);
         alert("sorry couldn't sign in -  Error: " + error);
+        return "error return!!";
       });
   }
 
@@ -56,11 +59,30 @@ export const User = function() {
 
   function testFunc() {
     console.log("testing only!");
-    return "hello";
+    return firebase.auth();
   }
 
-  function testFunc2() {
-    console.log("testing only - func2!");
+  function OnAuthChangedListener(loggedIn, loggedOut) {
+    console.log("OnAuthChangedListener!");
+
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        // User is signed in and currentUser will no longer return null.
+        //console.log("Listener - User signed in!");
+        console.log("firebase-user-onAuth-user logged in!!")
+        loggedIn(user.uid)
+      } else {
+        // No user is signed in.
+        //console.log("Listener - User signed out!");
+        console.log("firebase-user-onAuth-user -logged Out!!")
+        loggedOut()
+      }
+    });
+
+  }
+
+  function currentUser() {
+    return firebase.auth().currentUser;
   }
 
   const myOb = {
@@ -79,11 +101,13 @@ export const User = function() {
       userSignedOut();
     }
   }
-
+  
   return {
     btnLogin: signIn,
     btnLogout: signOut,
     testFunc: testFunc,
-    initLoginForm: initLoginForm
+    initLoginForm: initLoginForm,
+    OnAuthChangedListener: OnAuthChangedListener,
+    currentUser: currentUser
   };
 };

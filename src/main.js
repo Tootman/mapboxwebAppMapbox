@@ -4,9 +4,7 @@ import { User } from "./User.js";
 
 // --- setup state  -----
 
-mapboxgl.accessToken =
-  "pk.eyJ1IjoiZGFuc2ltbW9ucyIsImEiOiJjamRsc2NieTEwYmxnMnhsN3J5a3FoZ3F1In0.m0ct-AGSmSX2zaCMbXl0-w";
-alert("End User Map v 0.9.017b");
+alert("End User Map v 0.9.020");
 const state = {};
 state.settings = {};
 state.sitesFeatureCollection = {};
@@ -37,8 +35,10 @@ state.settings.maps.hounslowBorough = {
   hasRelatedData: true,
   zoom: 11
 };
-(state.settings.currentMapId = "richmondBorough"),
-  (state.sitesQueryResult = {});
+state.settings.currentMapId = "hounslowBorough";
+state.sitesQueryResult = {};
+state.fbDatabase = {};
+state.userProfile = {};
 
 const loadSiteNamesDatasetLayer = datasetId => {
   const url = `https://api.mapbox.com/datasets/v1/dansimmons/${datasetId}/features?access_token=${
@@ -93,9 +93,138 @@ const selectNewMap = mapID => {
   loadSiteNamesDatasetLayer(state.settings.maps[mapID].sitesDataSet);
 };
 
+const selectNewMapWithAccess = userProfile => {
+  mapboxgl.accessToken = userProfile.mapboxAccessToken;
+  map.setStyle(userProfile.mapboxStyleId);
+  //state.settings.currentMapId = mapID; // fudge - come back to
+  map.on("data", armIsStyleLoaded);
+  //document.getElementById("navbarToggler").classList.remove("show");
+  loadSiteNamesDatasetLayer(userProfile.mapboxSitesDataSet);
+  console.log("attaching listeners ...");
+  attachMapListeners();
+  console.log("attached listeners done");
+};
+
 // ------ init -------------------------------
 
-map = new mapboxgl.Map({
+document.addEventListener("DOMContentLoaded", function(event) {
+  initApp();
+
+  document.getElementById("login-btn").addEventListener("click", () => {
+    //User().btnLogin();
+    console.log("btnlogin");
+    userLogin();
+  });
+
+  document.getElementById("logout-btn").addEventListener("click", () => {
+    User().btnLogout();
+  });
+
+  /*
+  map.on("mouseenter", "points-symbol", e => {
+    map.getCanvas().style.cursor = "default";
+  });
+  map.on("mouseleave", "points-symbol", () => {
+    map.getCanvas().style.cursor = "";
+  });
+ */
+});
+
+const initApp = () => {
+  console.log("initApp!");
+  state.fbDatabase = initFirebase();
+  const myUser = User();
+  const loggedIn = myUid => {
+    // logged in Func
+    getUserProfileFromFirebase(myUid).then(snapshot => {
+      state.userProfile = snapshot.val();
+      selectNewMapWithAccess(state.userProfile);
+    });
+  };
+
+  const loggedOut = () => {
+    //logged out func
+    console.log("logged out - callback");
+  };
+
+  myUser.OnAuthChangedListener(loggedIn, loggedOut);
+};
+
+const attachMapListeners = () => {
+  document
+    .getElementById("select-hounslow-map")
+    .addEventListener("click", () => {
+      selectNewMap("hounslowBorough");
+    });
+  document
+    .getElementById("select-richmond-map")
+    .addEventListener("click", () => {
+      selectNewMap("richmondBorough");
+    });
+
+  map.on("moveend", function(e) {
+    document.getElementById("myInput").value = "";
+  });
+
+  map.on("click", e => {
+    const features = map.queryRenderedFeatures(e.point, {
+      layers: pointsAndLineLayers
+    });
+    if (!features.length) {
+      return;
+    }
+    const feature = features[0];
+
+    if (state.settings.maps[state.settings.currentMapId].hasRelatedData) {
+      const obId = feature.properties.OBJECTID + feature.geometry.type;
+      fetchLastFirebaseRelatedData(obId);
+    }
+    const p = feature.properties;
+    const popupTitle = p.ASSET || p.Asset || p.asset;
+    //const popupFeatureContent = propSet(feature)
+    //document.getElementById("popup-feature-template").innerHTML = propSet(feature)
+    const modalContent = `${propSet(
+      feature.properties
+    )}</p><div class="propsetPhoto"></div>`;
+    const popupContent = `<dt>${popupTitle}</dt><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+        more...</button>`;
+    //const popupContent = `<img id="related-image" src="example-photo.jpg"/>`
+    document.querySelector(".modal-feature-attr").innerHTML = modalContent;
+    document.querySelector(".modal-title").innerHTML = popupTitle;
+    const popup = new mapboxgl.Popup({
+      offset: [0, -15]
+    })
+      .setLngLat(e.lngLat)
+      .setHTML(popupContent)
+      .addTo(map);
+    //attachPropsetPhotoIfExists(feature.properties);
+    const photoParentEl = document.querySelector(".modal-feature-photo");
+    if ((p.Photo || p.PHOTO) && state.userProfile.fbStoragePhotosPath) {
+      //const storage = firebase.storage();
+      //const pathRef = storage.ref(state.userProfile.fbStoragePhotosPath);
+      const pathRef = state.userProfile.fbStoragePhotosPath;
+      // .modal-feature-photo
+      const photoId = p.Photo || p.PHOTO;
+      fetchPhotoFromFBStorage({
+        parentEl: photoParentEl,
+        path: state.userProfile.fbStoragePhotosPath,
+        photoId: photoId
+      });
+    } else {
+      photoParentEl.src = "";
+    }
+  });
+};
+
+const attachPropsetPhotoIfExists = propset => {
+  let el = "";
+  if (propset.Photo || propset.PHOTO) {
+    el = `<P>Photo here!</p>`;
+  }
+  return el;
+};
+
+const map = new mapboxgl.Map({
   container: "map",
   //style: (state.settings.maps[state.settings.currentMapId].url), // contains all layers with data - Richmond
   //style: 'mapbox://styles/dansimmons/cjrrodbqq01us2slmro016y8b', //hounslow
@@ -125,7 +254,7 @@ map.addControl(
   })
 );
 
-const lineLayers = [
+let lineLayers = [
   "lines-wall",
   "lines-fence",
   "lines-fence-over-wall",
@@ -133,81 +262,36 @@ const lineLayers = [
   "lines-all-other"
 ]; // replace this with the name of the layer
 
-const pointsAndLineLayers = lineLayers;
+let pointsAndLineLayers = lineLayers;
 pointsAndLineLayers.push("points-symbol");
 
 const allLayers = pointsAndLineLayers;
 allLayers.push("polygons");
 
-lineLayers.map(layer => {
-  map.on("mouseenter", layer, e => {
-    map.getCanvas().style.cursor = "cell";
+/*
+
+*/
+map.on("load", e => {
+  map.on("mouseenter", "points-symbol", e => {
+    map.getCanvas().style.cursor = "default";
   });
-  map.on("mouseleave", layer, () => {
+  map.on("mouseleave", "points-symbol", () => {
     map.getCanvas().style.cursor = "";
   });
-});
-
-map.on("mouseenter", "points-symbol", e => {
-  map.getCanvas().style.cursor = "cell";
-});
-map.on("mouseleave", "points-symbol", () => {
-  map.getCanvas().style.cursor = "";
-});
-
-document.getElementById("select-hounslow-map").addEventListener("click", () => {
-  selectNewMap("hounslowBorough");
-});
-document.getElementById("select-richmond-map").addEventListener("click", () => {
-  selectNewMap("richmondBorough");
-});
-
-map.on("moveend", function(e) {
-  document.getElementById("myInput").value = "";
-});
-
-document.getElementById("login-btn").addEventListener("click", () => {
-  User().btnLogin();
-});
-
-document.getElementById("logout-btn").addEventListener("click", () => {
-  User().btnLogout();
-});
-
-map.on("click", e => {
-  const features = map.queryRenderedFeatures(e.point, {
-    layers: pointsAndLineLayers
+  lineLayers.map(layer => {
+    map.on("mouseenter", layer, e => {
+      map.getCanvas().style.cursor = "default";
+    });
+    map.on("mouseleave", layer, () => {
+      map.getCanvas().style.cursor = "";
+    });
   });
-  if (!features.length) {
-    return;
-  }
-  const feature = features[0];
 
-  if (state.settings.maps[state.settings.currentMapId].hasRelatedData) {
-    const obId = feature.properties.OBJECTID + feature.geometry.type;
-    fetchLastFirebaseRelatedData(obId);
-  }
-  const p = feature.properties;
-  const popupTitle = p.ASSET || p.Asset || p.asset;
-  //const popupFeatureContent = propSet(feature)
-  //document.getElementById("popup-feature-template").innerHTML = propSet(feature)
-  const modalContent = `${propSet(feature.properties)}</p>`;
-  const popupContent = `<h4>${popupTitle}</h4><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-      Details ...</button>`;
-  //const popupContent = `<img id="related-image" src="example-photo.jpg"/>`
-  document.querySelector(".modal-feature-attr").innerHTML = modalContent;
-  document.querySelector(".modal-title").innerHTML = popupTitle;
-  const popup = new mapboxgl.Popup({
-    offset: [0, -15]
-  })
-    .setLngLat(e.lngLat)
-    .setHTML(popupContent)
-    .addTo(map);
+  console.log("mapresources loaded");
 });
 
-selectNewMap(state.settings.currentMapId);
-
-window.User = User;
+//selectNewMap(state.settings.currentMapId);
+//window.User = User;
 
 // ------------- functions ---
 
@@ -296,7 +380,7 @@ const fetchLastFirebaseRelatedData = obId => {
   const path = `/App/Maps/${
     state.settings.maps[state.settings.currentMapId].firebaseMapId
   }/Related/${obId}`;
-  fbDatabase
+  state.fbDatabase
     .ref(path)
     .orderByKey()
     .limitToLast(1)
@@ -306,33 +390,42 @@ const fetchLastFirebaseRelatedData = obId => {
       const propObject = Object.values(snap.val())[0];
       if (propObject) {
         //document.getElementById("reldata").innerHTML = propSet(propObject)
-        let relatedDataContent = `<h4>Related Data</h4>`;
+        let relatedDataContent = `<h4>Latest update</h4>`;
         relatedDataContent += propSet(propObject);
         document.querySelector(
           ".modal-related-data"
         ).innerHTML = relatedDataContent;
       }
-      const storage = firebase.storage();
-      const pathRef = storage.ref("hounslow/thumbnails/");
-      pathRef
-        .child("example-photo.jpg")
-        .getDownloadURL()
-        .then(url => {
-          fetch(url)
-            .then(response => {
-              //alert("blobReturned!:", url)
-              return response.blob();
-            })
-            .then(imageBlob => {
-              //alert ("blob then ..")
-              const el = document.querySelector(".modal-related-image");
-              el.src = URL.createObjectURL(imageBlob);
-              el.style.width = "100%";
-              //document.getElementById('related-image').src ="example-photo.jpg"
-            })
-            .catch(error => {
-              //alert ("Error!:", error.message)
-            });
+
+      fetchPhotoFromFBStorage({
+        parentEl: document.querySelector(".modal-related-image"),
+        path: "hounslow/thumbnails/",
+        photoId: "example-photo.jpg"
+      });
+    });
+};
+
+const fetchPhotoFromFBStorage = ({ parentEl, path, photoId }) => {
+  const storage = firebase.storage();
+  const pathRef = storage.ref(path);
+  pathRef
+    .child(photoId)
+    .getDownloadURL()
+    .then(url => {
+      fetch(url)
+        .then(response => {
+          //alert("blobReturned!:", url)
+          return response.blob();
+        })
+        .then(imageBlob => {
+          //alert ("blob then ..")
+          //const el = document.querySelector(".modal-related-image");
+          parentEl.src = URL.createObjectURL(imageBlob);
+          parentEl.style.width = "100%";
+          //document.getElementById('related-image').src ="example-photo.jpg"
+        })
+        .catch(error => {
+          //alert ("Error!:", error.message)
         });
     });
 };
@@ -343,7 +436,7 @@ const propSet = p => {
       return `<tr><td>${item}</td><td>${p[item]}</td>`;
     })
     .join("</tr>");
-  return `<table class="table table-sm table-responsive-sm table-striped">${itemList}</table>`;
+  return `<table class="table table-sm table-striped">${itemList}</table>`;
 };
 
 const fireBaseconfig = {
@@ -354,13 +447,31 @@ const fireBaseconfig = {
   storageBucket: "fir-realtime-db-24299.appspot.com",
   messagingSenderId: "546067641349"
 };
-firebase.initializeApp(fireBaseconfig);
-const fbDatabase = firebase.database();
-armIsStyleLoaded();
 
-// --- setup listeners---
+const initFirebase = () => {
+  firebase.initializeApp(fireBaseconfig);
+  return firebase.database();
+};
 
-//  ----------- setup map controls -----------
+const userLogin = () => {
+  User()
+    .btnLogin()
+    .then(data => {
+      console.log("some final stuff:", data);
+      //const token = data.mapboxAccessToken
+      getUserProfileFromFirebase(data.uid).then(snapshot => {
+        state.userProfile = snapshot.val();
+        selectNewMapWithAccess(state.userProfile);
+      });
+    });
+};
+
+const getUserProfileFromFirebase = userId => {
+  return firebase
+    .database()
+    .ref(`App/Users/${userId}/`)
+    .once("value");
+};
 
 // --- search auto complete ---
 
