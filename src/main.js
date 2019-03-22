@@ -4,7 +4,7 @@ import { User } from "./User.js";
 
 // --- setup state  -----
 
-alert("End User Map v 0.9.020");
+alert("End User Map v 0.9.021b");
 const state = {};
 state.settings = {};
 state.sitesFeatureCollection = {};
