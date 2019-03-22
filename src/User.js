@@ -14,7 +14,7 @@ export const User = function() {
       .signInWithEmailAndPassword(email.value, pw.value)
       .then(user => {
         console.log(user, "signed in!");
-        userSignedIn();
+        //userSignedIn();
         //console.log("userDetails:", user);
         return user;
       })
@@ -43,11 +43,13 @@ export const User = function() {
   }
 
   function userSignedIn() {
-    msg.innerHTML = "you are now signed in!";
+    //msg.innerHTML = "you are now signed in!";
+/*
     pw.innerHTML = null;
     loginBtn.style.display = "none";
     logoutBtn.style.display = "block";
     loginForm.style.display = "none";
+*/
   }
 
   function userSignedOut() {

@@ -138,13 +138,24 @@ const initApp = () => {
     // logged in Func
     getUserProfileFromFirebase(myUid).then(snapshot => {
       state.userProfile = snapshot.val();
-      document.getElementById("Login-status-message").innerHTML = `Hi ${state.userProfile.userName}`
+      document.getElementById("Login-status-message").innerHTML = `Hi ${
+        state.userProfile.userName
+      }`;
+
+      document.getElementById("login-btn").style.display = "none";
+      document.getElementById("logout-btn").style.display = "block";
+      document.getElementById("login-form").style.display = "none";
       selectNewMapWithAccess(state.userProfile);
     });
   };
 
   const loggedOut = () => {
     //logged out func
+    document.getElementById("Login-status-message").innerHTML =
+      "Bye  - you have now signed out";
+    document.getElementById("login-btn").style.display = "block";
+    document.getElementById("logout-btn").style.display = "none";
+    document.getElementById("login-form").style.display = "block";
     console.log("logged out - callback");
   };
 
@@ -458,15 +469,18 @@ const userLogin = () => {
   User()
     .btnLogin()
     .then(data => {
-      console.log("login () some final stuff:", data);
+      console.log("login () any final stuff:", data);
 
-      //const token = data.mapboxAccessToken
-      getUserProfileFromFirebase(data.uid).then(snapshot => {
-        state.userProfile = snapshot.val();
-        //const msg = document.getElementById("Login-status-message");
-        //msg.innerHTML = "HEllo!"
-        selectNewMapWithAccess(state.userProfile);
-      });
+      // // const token = data.mapboxAccessToken
+      //getUserProfileFromFirebase(data.uid).then(snapshot => {
+      //state.userProfile = snapshot.val();
+      // //const msg = document.getElementById("Login-status-message");
+
+      //selectNewMapWithAccess(state.userProfile);
+      //});
+    })
+    .catch(error => {
+      console.log("error in login!");
     });
 };
 
