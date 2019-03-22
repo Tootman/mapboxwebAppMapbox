@@ -138,6 +138,7 @@ const initApp = () => {
     // logged in Func
     getUserProfileFromFirebase(myUid).then(snapshot => {
       state.userProfile = snapshot.val();
+      document.getElementById("Login-status-message").innerHTML = `Hi ${state.userProfile.userName}`
       selectNewMapWithAccess(state.userProfile);
     });
   };
@@ -457,10 +458,13 @@ const userLogin = () => {
   User()
     .btnLogin()
     .then(data => {
-      console.log("some final stuff:", data);
+      console.log("login () some final stuff:", data);
+
       //const token = data.mapboxAccessToken
       getUserProfileFromFirebase(data.uid).then(snapshot => {
         state.userProfile = snapshot.val();
+        //const msg = document.getElementById("Login-status-message");
+        //msg.innerHTML = "HEllo!"
         selectNewMapWithAccess(state.userProfile);
       });
     });

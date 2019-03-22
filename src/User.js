@@ -101,7 +101,7 @@ export const User = function() {
       userSignedOut();
     }
   }
-  
+
   return {
     btnLogin: signIn,
     btnLogout: signOut,
