@@ -106,8 +106,8 @@ export const User = function() {
   }
 
   return {
-    //btnLogin: signIn,
-    //btnLogout: signOut,
+    btnLogin: signIn,
+    btnLogout: signOut,
     testFunc: testFunc,
     //initLoginForm: initLoginForm,
     OnAuthChangedListener: OnAuthChangedListener,

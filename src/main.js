@@ -4,7 +4,7 @@ import { User } from "./User.js";
 
 // --- setup state  -----
 
-alert("End User Map v 0.9.021b");
+alert("End User Map v 0.9.022");
 const state = {};
 state.settings = {};
 state.sitesFeatureCollection = {};
@@ -117,7 +117,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
   });
 
   document.getElementById("logout-btn").addEventListener("click", () => {
-    User().btnLogout();
+    //User().btnLogout();
   });
 
   /*
@@ -483,6 +483,20 @@ const userLogin = () => {
       console.log("error in login!");
     });
 };
+
+const userLogout = () => {
+  User()
+    .btnLogout()
+    .then(data => {
+      console.log("login () any final stuff:", data);
+
+
+    })
+    .catch(error => {
+      console.log("error in login!");
+    });
+};
+
 
 const getUserProfileFromFirebase = userId => {
   return firebase
