@@ -3,10 +3,10 @@ import firebase from "firebase";
 export const User = function() {
   const email = document.getElementById("emailInput");
   const pw = document.getElementById("passwordInput");
-  const msg = document.getElementById("Login-status-message");
-  const loginBtn = document.getElementById("login-btn");
-  const logoutBtn = document.getElementById("logout-btn");
-  const loginForm = document.getElementById("login-form");
+  //const msg = document.getElementById("Login-status-message");
+  //const loginBtn = document.getElementById("login-btn");
+  //const logoutBtn = document.getElementById("logout-btn");
+  //const loginForm = document.getElementById("login-form");
   const auth = firebase.auth;
 
   function signIn(myFunc) {
@@ -33,7 +33,7 @@ export const User = function() {
         function() {
           // Sign-out successful.
           console.log("successfully signed out");
-          userSignedOut();
+          //userSignedOut();
         },
         function(error) {
           // An error happened.
@@ -44,7 +44,7 @@ export const User = function() {
 
   function userSignedIn() {
     //msg.innerHTML = "you are now signed in!";
-/*
+    /*
     pw.innerHTML = null;
     loginBtn.style.display = "none";
     logoutBtn.style.display = "block";
@@ -53,10 +53,12 @@ export const User = function() {
   }
 
   function userSignedOut() {
+    /*
     msg.innerHTML = "Bye  - you have now signed out";
     loginBtn.style.display = "block";
     logoutBtn.style.display = "none";
     loginForm.style.display = "block";
+*/
   }
 
   function testFunc() {
@@ -71,16 +73,15 @@ export const User = function() {
       if (user) {
         // User is signed in and currentUser will no longer return null.
         //console.log("Listener - User signed in!");
-        console.log("firebase-user-onAuth-user logged in!!")
-        loggedIn(user.uid)
+        console.log("firebase-user-onAuth-user logged in!!");
+        loggedIn(user.uid);
       } else {
         // No user is signed in.
         //console.log("Listener - User signed out!");
-        console.log("firebase-user-onAuth-user -logged Out!!")
-        loggedOut()
+        console.log("firebase-user-onAuth-user -logged Out!!");
+        loggedOut();
       }
     });
-
   }
 
   function currentUser() {
@@ -105,10 +106,10 @@ export const User = function() {
   }
 
   return {
-    btnLogin: signIn,
-    btnLogout: signOut,
+    //btnLogin: signIn,
+    //btnLogout: signOut,
     testFunc: testFunc,
-    initLoginForm: initLoginForm,
+    //initLoginForm: initLoginForm,
     OnAuthChangedListener: OnAuthChangedListener,
     currentUser: currentUser
   };

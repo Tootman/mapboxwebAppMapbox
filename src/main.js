@@ -152,7 +152,7 @@ const initApp = () => {
   const loggedOut = () => {
     //logged out func
     document.getElementById("Login-status-message").innerHTML =
-      "Bye  - you have now signed out";
+      "Bye - you have now signed out";
     document.getElementById("login-btn").style.display = "block";
     document.getElementById("logout-btn").style.display = "none";
     document.getElementById("login-form").style.display = "block";
