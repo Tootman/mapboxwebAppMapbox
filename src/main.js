@@ -87,6 +87,7 @@ const armIsStyleLoaded = () => {
 
 const selectNewMap = mapID => {
   map.setStyle(state.settings.maps[mapID].url);
+  document.querySelector("#satellite-layer-chkbox").checked = false
   state.settings.currentMapId = mapID; // fudge - come back to
   map.on("data", armIsStyleLoaded);
   document.getElementById("navbarToggler").classList.remove("show");
@@ -96,6 +97,7 @@ const selectNewMap = mapID => {
 const selectNewMapWithAccess = userProfile => {
   mapboxgl.accessToken = userProfile.mapboxAccessToken;
   map.setStyle(userProfile.mapboxStyleId);
+  document.querySelector("#satellite-layer-chkbox").checked = false
   //state.settings.currentMapId = mapID; // fudge - come back to
   map.on("data", armIsStyleLoaded);
   //document.getElementById("navbarToggler").classList.remove("show");
