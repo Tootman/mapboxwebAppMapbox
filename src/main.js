@@ -141,10 +141,11 @@ const initApp = () => {
       document.getElementById("Login-status-message").innerHTML = `Hi ${
         state.userProfile.userName
       }`;
-
       document.getElementById("login-btn").style.display = "none";
       document.getElementById("logout-btn").style.display = "block";
       document.getElementById("login-form").style.display = "none";
+      document.querySelector("canvas").style.display = "block";
+      document.getElementById("mapsplash").style.display = "none";
       selectNewMapWithAccess(state.userProfile);
     });
   };
@@ -156,6 +157,8 @@ const initApp = () => {
     document.getElementById("login-btn").style.display = "block";
     document.getElementById("logout-btn").style.display = "none";
     document.getElementById("login-form").style.display = "block";
+    document.querySelector("canvas").style.display = "none";
+    document.getElementById("mapsplash").style.display = "block";
     console.log("logged out - callback");
   };
 
@@ -177,6 +180,20 @@ const attachMapListeners = () => {
   map.on("moveend", function(e) {
     document.getElementById("myInput").value = "";
   });
+
+  document
+    .querySelector("#satellite-layer-chkbox")
+    .addEventListener("change", e => {
+      if (e.target.checked) {
+        // Checkbox is checked..
+        satImageSetVisible (true)
+        console.log("tickbox checked")
+      } else {
+        // Checkbox is not checked..
+          satImageSetVisible (false)
+        console.log("tickbox notChecked")
+      }
+    });
 
   map.on("click", e => {
     const features = map.queryRenderedFeatures(e.point, {
@@ -489,6 +506,8 @@ const userLogout = () => {
     .btnLogout()
     .then(data => {
       console.log("loggout:");
+      document.querySelector("canvas").style.display = "none";
+      document.getElementById("mapsplash").style.display = "block";
     })
     .catch(error => {
       console.log("error in logout!");

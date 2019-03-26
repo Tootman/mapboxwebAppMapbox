@@ -63,12 +63,12 @@
 
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            View
+            Options
           </a>
           <div class="dropdown-menu " aria-labelledby="navbarDropdown">
             <div class="form-check">
-              <input type="checkbox" class="form-check-input" id="satellite">
-              <label class="form-check-label" for="exampleCheck1">satellite </label>
+              <input type="checkbox" class="form-check-input" name="satellite-layer-chkbox" id="satellite-layer-chkbox">
+              <label class="form-check-label" for="satellite-layer-chkbox">Satellite view </label>
             </div>
           </div>
         </li>
@@ -83,7 +83,12 @@
 
     </div>
   </nav>
-  <div id='map'></div>
+  <div id='map'>
+    <div id="mapsplash" style="text-align:center; padding-top:1em"><h3>Welcome to ORCL's Web map</h3>
+    <p>Please log in </P>
+    </div>
+  </div>
+
   <!-- The Modal -->
   <div class="modal fade" id="myModal">
     <div class=" modal-dialog">
