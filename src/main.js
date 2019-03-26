@@ -117,7 +117,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
   });
 
   document.getElementById("logout-btn").addEventListener("click", () => {
-    //User().btnLogout();
+    userLogout();
   });
 
   /*
@@ -488,21 +488,27 @@ const userLogout = () => {
   User()
     .btnLogout()
     .then(data => {
-      console.log("login () any final stuff:", data);
-
-
+      console.log("loggout:");
     })
     .catch(error => {
-      console.log("error in login!");
+      console.log("error in logout!");
     });
 };
-
 
 const getUserProfileFromFirebase = userId => {
   return firebase
     .database()
     .ref(`App/Users/${userId}/`)
     .once("value");
+};
+
+const satImageSetVisible = visible => {
+  if (visible) {
+    map.setLayoutProperty("mapbox-satellite", "visibility", "visible");
+    //map.setPaintProperty('polygons', 'fill-opacity', 0.1);
+  } else {
+    map.setLayoutProperty("mapbox-satellite", "visibility", "none");
+  }
 };
 
 // --- search auto complete ---

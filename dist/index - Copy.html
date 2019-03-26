@@ -27,7 +27,6 @@
     <dt id="popup-title-template"> </dt>
     <p id="popup-feature-template"> </p>
   </template>
-
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="#">ORCL <span id="map-name"></span></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
@@ -35,7 +34,7 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarToggler">
       <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-        <li class="nav-item dropdown">
+        <li class="nav-item">
           <a class="nav-link dropdown-toggle" title="Open a new map" href="#" role="button" id="sitelinks" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Open </a>
           <div class="dropdown-menu" aria-labelledby="sitelinks">
@@ -43,29 +42,35 @@
             <a class="dropdown-item nav-linkx navbar-collapse" id="select-richmond-map" href="#">Richmond Borough</a>
           </div>
         </li>
-        <li class="nav-item dropdown">
+
+        <!--
+        <li class="nav-item">
+           <a class="nav-link dropdown-toggle" title="Goto a site within the current map view"  href="#" role="button" id="site-name-links" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Goto</a>
+          <div class="dropdown-menu" id="site-dropdown-div" style="max-height:'300px';overflow-y:'scroll'" overflow-y: scroll; aria-labelledby="sitelinks">
+            </div>
+        </li>
+    -->
+
+        <li class="nav-item">
           <a class="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             User</a>
           <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            <div>
-              <p id="Login-status-message"> Please log in </p>
-              <div id="login-form">
-                <input type="email" class="form-control" id="emailInput" placeholder="your email" />
-                <br>
-                <input type="password" class="form-control" id="passwordInput" placeholder="your password" />
-                <br>
-              </div>
-              <button id="login-btn" class="btn btn-primary">Log in</button>
-              <button id="logout-btn" class="btn btn-primary">Log out </button>
+            <p id="Login-status-message"> Please log in </p>
+            <div id="login-form">
+              <input type="email" class="form-control" id="emailInput" placeholder="your email" />
+              <br>
+              <input type="password" class="form-control" id="passwordInput" placeholder="your password" />
+              <br>
             </div>
+            <button id="login-btn" class="btn btn-primary">Log in</button>
+            <button id="logout-btn" class="btn btn-primary">Log out </button>
           </div>
         </li>
-
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            View
-          </a>
-          <div class="dropdown-menu " aria-labelledby="navbarDropdown">
+        <li class="nav-item">
+          <a class="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            View</a>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
             <div class="form-check">
               <input type="checkbox" class="form-check-input" id="satellite">
               <label class="form-check-label" for="exampleCheck1">satellite </label>
@@ -74,7 +79,11 @@
         </li>
       </ul>
       <!--
-  -->
+      <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" onfocus="searchBoxOnFocus()" id="search-box" placeholder="Search Assets (Not yet working)">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      </form>
+-->
       <form class="form-inline my-2 my-lg-0" autocomplete="off">
         <div class="autocomplete" style="width:300px;">
           <input id="myInput" type="text" name="myCountry" placeholder="Search site name">
