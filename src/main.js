@@ -78,12 +78,11 @@ const armIsStyleLoaded = () => {
     map.off("data", armIsStyleLoaded);
     console.log("finally loaded");
     const mapID = state.settings.currentMapId;
-    //map.setCenter(state.settings.maps[mapID].center);
     // note that below takes settings from UserProfile NOT from local settings
     // it is assumed that local settings center and zoom will be removed soon
-    map.setCenter(state.userProfile.center);
-    map.setZoom(state.userProfile.zoom);
-    //map.setZoom(11);
+    //map.setCenter(state.userProfile.center);
+    //map.setZoom(state.userProfile.zoom);
+    map.setZoom(11);
     document.getElementById("map-name").innerHTML =
       " - " + state.settings.maps[mapID].mapName;
   }
@@ -91,7 +90,7 @@ const armIsStyleLoaded = () => {
 
 const selectNewMap = mapID => {
   map.setStyle(state.settings.maps[mapID].url);
-  document.querySelector("#satellite-layer-chkbox").checked = false
+  document.querySelector("#satellite-layer-chkbox").checked = false;
   state.settings.currentMapId = mapID; // fudge - come back to
   map.on("data", armIsStyleLoaded);
   document.getElementById("navbarToggler").classList.remove("show");
@@ -101,7 +100,7 @@ const selectNewMap = mapID => {
 const selectNewMapWithAccess = userProfile => {
   mapboxgl.accessToken = userProfile.mapboxAccessToken;
   map.setStyle(userProfile.mapboxStyleId);
-  document.querySelector("#satellite-layer-chkbox").checked = false
+  document.querySelector("#satellite-layer-chkbox").checked = false;
   //state.settings.currentMapId = mapID; // fudge - come back to
   map.on("data", armIsStyleLoaded);
   //document.getElementById("navbarToggler").classList.remove("show");
@@ -192,12 +191,12 @@ const attachMapListeners = () => {
     .addEventListener("change", e => {
       if (e.target.checked) {
         // Checkbox is checked..
-        satImageSetVisible (true)
-        console.log("tickbox checked")
+        satImageSetVisible(true);
+        console.log("tickbox checked");
       } else {
         // Checkbox is not checked..
-          satImageSetVisible (false)
-        console.log("tickbox notChecked")
+        satImageSetVisible(false);
+        console.log("tickbox notChecked");
       }
     });
 
