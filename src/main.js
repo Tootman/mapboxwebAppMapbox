@@ -78,8 +78,12 @@ const armIsStyleLoaded = () => {
     map.off("data", armIsStyleLoaded);
     console.log("finally loaded");
     const mapID = state.settings.currentMapId;
-    map.setCenter(state.settings.maps[mapID].center);
-    map.setZoom(11);
+    //map.setCenter(state.settings.maps[mapID].center);
+    // note that below takes settings from UserProfile NOT from local settings
+    // it is assumed that local settings center and zoom will be removed soon
+    map.setCenter(state.userProfile.center);
+    map.setZoom(state.userProfile.zoom);
+    //map.setZoom(11);
     document.getElementById("map-name").innerHTML =
       " - " + state.settings.maps[mapID].mapName;
   }
