@@ -140,7 +140,7 @@ input[type=submit] {
 }
 
 .modal-body {
-    padding: 0rem;
+    /* padding: 0rem; */
 }
 
 h4, .h4 {

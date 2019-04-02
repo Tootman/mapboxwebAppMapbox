@@ -4,9 +4,16 @@ import { User } from "./User.js";
 
 // --- setup state  -----
 
-alert("End User Map v 0.9.022");
+//alert("End User Map v 0.9.022");
 const state = {};
 state.settings = {};
+state.about = {};
+state.about.version = "0.9.023";
+state.about.releaseDate = "2nd April 2019";
+state.about.aboutContent = `<p>Local Authority open spaces asset tracking and mapping</p>
+<p>Version: ${state.about.version}</p> <p>Released: ${
+  state.about.releaseDate
+}<p> `;
 state.sitesFeatureCollection = {};
 state.settings.maps = {};
 state.settings.maps.richmondBorough = {
@@ -105,9 +112,7 @@ const selectNewMapWithAccess = userProfile => {
   map.on("data", armIsStyleLoaded);
   //document.getElementById("navbarToggler").classList.remove("show");
   loadSiteNamesDatasetLayer(userProfile.mapboxSitesDataSet);
-  console.log("attaching listeners ...");
   attachMapListeners();
-  console.log("attached listeners done");
 };
 
 // ------ init -------------------------------
@@ -120,19 +125,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
     console.log("btnlogin");
     userLogin();
   });
-
   document.getElementById("logout-btn").addEventListener("click", () => {
     userLogout();
   });
-
-  /*
-  map.on("mouseenter", "points-symbol", e => {
-    map.getCanvas().style.cursor = "default";
-  });
-  map.on("mouseleave", "points-symbol", () => {
-    map.getCanvas().style.cursor = "";
-  });
- */
 });
 
 const initApp = () => {
@@ -181,6 +176,9 @@ const attachMapListeners = () => {
     .addEventListener("click", () => {
       selectNewMap("richmondBorough");
     });
+  document.getElementById("about-nav-link").addEventListener("click", () => {
+    showAboutBox();
+  });
 
   map.on("moveend", function(e) {
     document.getElementById("myInput").value = "";
@@ -220,7 +218,7 @@ const attachMapListeners = () => {
     const modalContent = `${propSet(
       feature.properties
     )}</p><div class="propsetPhoto"></div>`;
-    const popupContent = `<dt>${popupTitle}</dt><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+    const popupContent = `<dt>${popupTitle}</dt><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#asset-infobox">
         more...</button>`;
     //const popupContent = `<img id="related-image" src="example-photo.jpg"/>`
     document.querySelector(".modal-feature-attr").innerHTML = modalContent;
@@ -324,9 +322,6 @@ map.on("load", e => {
   console.log("mapresources loaded");
 });
 
-//selectNewMap(state.settings.currentMapId);
-//window.User = User;
-
 // ------------- functions ---
 
 const searchBoxOnFocus = () => {
@@ -339,14 +334,11 @@ const searchBoxOnFocus = () => {
     sourceLayer: state.settings.maps[mapId].dataSource
     // ,filter: ['==', 'Site_Name', 'Grove Road Gardens']
   });
-
   const siteNames = state.sitesQueryResult.map(feature => {
     const siteName = feature.properties.Site_Name || feature.properties.Site;
     return siteName;
   });
   autocomplete(document.getElementById("myInput"), siteNames);
-
-  console.log("done!");
 };
 
 const siteNamesArr = sourceLayer => {
@@ -381,6 +373,12 @@ const flyTo = siteName => {
   map.fitBounds(turf.bbox(site[0])); // fails with array
   //turf.bbox()
   //document.getElementById('myInput').value=""
+};
+
+const showAboutBox = () => {
+  const el = document.getElementById("about-infobox-content")
+  el.innerHTML = state.about.aboutContent
+  console.log("aboutBox!")
 };
 
 const populateDropDownSites = () => {
@@ -448,15 +446,11 @@ const fetchPhotoFromFBStorage = ({ parentEl, path, photoId }) => {
     .then(url => {
       fetch(url)
         .then(response => {
-          //alert("blobReturned!:", url)
           return response.blob();
         })
         .then(imageBlob => {
-          //alert ("blob then ..")
-          //const el = document.querySelector(".modal-related-image");
           parentEl.src = URL.createObjectURL(imageBlob);
           parentEl.style.width = "100%";
-          //document.getElementById('related-image').src ="example-photo.jpg"
         })
         .catch(error => {
           //alert ("Error!:", error.message)
