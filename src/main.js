@@ -222,7 +222,7 @@ const attachMapListeners = () => {
         more...</button>`;
     //const popupContent = `<img id="related-image" src="example-photo.jpg"/>`
     document.querySelector(".modal-feature-attr").innerHTML = modalContent;
-    document.querySelector(".modal-title").innerHTML = popupTitle;
+    document.querySelector("#asset-infobox-title").innerHTML = popupTitle;
     const popup = new mapboxgl.Popup({
       offset: [0, -15]
     })
@@ -376,9 +376,9 @@ const flyTo = siteName => {
 };
 
 const showAboutBox = () => {
-  const el = document.getElementById("about-infobox-content")
-  el.innerHTML = state.about.aboutContent
-  console.log("aboutBox!")
+  const el = document.getElementById("about-infobox-content");
+  el.innerHTML = state.about.aboutContent;
+  console.log("aboutBox!");
 };
 
 const populateDropDownSites = () => {
