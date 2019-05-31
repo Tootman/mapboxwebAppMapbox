@@ -206,9 +206,14 @@ const attachMapListeners = () => {
       return;
     }
     const feature = features[0];
+    document.querySelector(".modal-related-image").style = "display:none"; // clear photo
 
     if (state.settings.maps[state.settings.currentMapId].hasRelatedData) {
-      const obId = feature.properties.OBJECTID + feature.geometry.type;
+      let obType = feature.geometry.type; // need to refactor to func
+      if (feature.geometry.type == "MultiPolygon") {
+        obType = "Polygon";
+      }
+      const obId = feature.properties.OBJECTID + obType;
       fetchLastFirebaseRelatedData(obId);
     }
     const p = feature.properties;
@@ -412,6 +417,7 @@ const fetchLastFirebaseRelatedData = obId => {
   const path = `/App/Maps/${
     state.settings.maps[state.settings.currentMapId].firebaseMapId
   }/Related/${obId}`;
+  console.log("path:", path);
   state.fbDatabase
     .ref(path)
     .orderByKey()
@@ -419,7 +425,10 @@ const fetchLastFirebaseRelatedData = obId => {
     .once("value")
     .then(snap => {
       // set popup from props of the last relData entry  for the feature
+      console.log("snap.val():", snap.val());
       const propObject = Object.values(snap.val())[0];
+
+      console.log("propObject:", Object.values(snap.val())[0]);
       if (propObject) {
         //document.getElementById("reldata").innerHTML = propSet(propObject)
         let relatedDataContent = `<h4>Latest update</h4>`;
@@ -435,6 +444,7 @@ const fetchLastFirebaseRelatedData = obId => {
           path: "hounslow/300x400/",
           photoId: propObject.photo
         });
+        document.querySelector(".modal-related-image").style = "display:block";
       }
     });
 };
