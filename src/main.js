@@ -429,11 +429,13 @@ const fetchLastFirebaseRelatedData = obId => {
         ).innerHTML = relatedDataContent;
       }
 
-      fetchPhotoFromFBStorage({
-        parentEl: document.querySelector(".modal-related-image"),
-        path: "hounslow/thumbnails/",
-        photoId: "example-photo.jpg"
-      });
+      if (propObject.photo) {
+        fetchPhotoFromFBStorage({
+          parentEl: document.querySelector(".modal-related-image"),
+          path: "hounslow/300x400/",
+          photoId: propObject.photo
+        });
+      }
     });
 };
 
