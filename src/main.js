@@ -8,12 +8,25 @@ import { User } from "./User.js";
 const state = {};
 state.settings = {};
 state.about = {};
-state.about.version = "0.9.023";
-state.about.releaseDate = "2nd April 2019";
-state.about.aboutContent = `<p>Local Authority open spaces asset tracking and mapping</p>
+state.about.version = "0.9.024";
+state.about.releaseDate = "2nd June 2019";
+state.about.aboutContent = `<p>Local Authority open spaces asset condition monitoring Web App</p>
 <p>Version: ${state.about.version}</p> <p>Released: ${
   state.about.releaseDate
-}<p> `;
+}</p>
+<hr>
+<h4>Condition abbreviations</h4>
+<p>
+c1 - condition 1 (hazard) <br>
+c2 - condition 2 (unfit for purpose) <br>
+c3 - condition 3 <br>
+c4 - condition 4 <br>
+c5 - condition 5 <br>
+c6 - condition 6  (as new) <br>
+rm - removed  (or not found)  <br>
+nv - not visable (unable to  assess condition) <br>
+pv - partially visable (unable to  assess condition)
+</p>`;
 state.sitesFeatureCollection = {};
 state.settings.maps = {};
 state.settings.maps.richmondBorough = {
