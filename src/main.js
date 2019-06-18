@@ -154,11 +154,11 @@ const initApp = () => {
       document.getElementById("Login-status-message").innerHTML = `Hi ${
         state.userProfile.userName
       }`;
-      document.getElementById("login-btn").style.display = "none";
-      document.getElementById("logout-btn").style.display = "block";
-      document.getElementById("login-form").style.display = "none";
-      document.querySelector("canvas").style.display = "block";
-      document.getElementById("mapsplash").style.display = "none";
+      document.getElementById("login-btn").style.cssText = "display: none";
+      document.getElementById("logout-btn").style.cssText = "display:block";
+      document.getElementById("login-form").style.cssText = "display:none";
+      document.querySelector("canvas").style.cssText = "display:block";
+      document.getElementById("mapsplash").style.cssText = "display:none";
       selectNewMapWithAccess(state.userProfile);
     });
   };
@@ -167,11 +167,11 @@ const initApp = () => {
     //logged out func
     document.getElementById("Login-status-message").innerHTML =
       "Bye - you have now signed out";
-    document.getElementById("login-btn").style.display = "block";
-    document.getElementById("logout-btn").style.display = "none";
-    document.getElementById("login-form").style.display = "block";
-    document.querySelector("canvas").style.display = "none";
-    document.getElementById("mapsplash").style.display = "block";
+    document.getElementById("login-btn").style.cssText = "display:block";
+    document.getElementById("logout-btn").style.cssText = "display:none";
+    document.getElementById("login-form").style.cssText = "display:block";
+    document.querySelector("canvas").style.cssText = "display:none";
+    document.getElementById("mapsplash").style.cssText = "display:block";
     console.log("logged out - callback");
   };
 
@@ -219,7 +219,8 @@ const attachMapListeners = () => {
       return;
     }
     const feature = features[0];
-    document.querySelector(".modal-related-image").style = "display:none"; // clear photo
+    document.querySelector(".modal-related-image").style.cssText =
+      "display:none"; // clear photo
 
     if (state.settings.maps[state.settings.currentMapId].hasRelatedData) {
       let obType = feature.geometry.type; // need to refactor to func
@@ -323,17 +324,17 @@ allLayers.push("polygons");
 */
 map.on("load", e => {
   map.on("mouseenter", "points-symbol", e => {
-    map.getCanvas().style.cursor = "default";
+    map.getCanvas().style.cssText = "cursor: default";
   });
   map.on("mouseleave", "points-symbol", () => {
-    map.getCanvas().style.cursor = "";
+    map.getCanvas().style.cssText = "cursor: ''";
   });
   lineLayers.map(layer => {
     map.on("mouseenter", layer, e => {
-      map.getCanvas().style.cursor = "default";
+      map.getCanvas().style.cssText = "cursor: default";
     });
     map.on("mouseleave", layer, () => {
-      map.getCanvas().style.cursor = "";
+      map.getCanvas().style.cssText = "cursor:''";
     });
   });
 
@@ -438,10 +439,13 @@ const fetchLastFirebaseRelatedData = obId => {
     .once("value")
     .then(snap => {
       // set popup from props of the last relData entry  for the feature
-      console.log("snap.val():", snap.val());
-      const propObject = Object.values(snap.val())[0];
+      //const propObject = Object.values(snap.val())[0]; // cannot use due to IE11
+      const mySnap = snap.val();
+      const propObject = mySnap[Object.keys(mySnap)[0]];
 
-      console.log("propObject:", Object.values(snap.val())[0]);
+      //console.log("snap.val():", snap.val());
+
+      //  console.log("propObject:", Object.values(snap.val())[0]);
       if (propObject) {
         //document.getElementById("reldata").innerHTML = propSet(propObject)
         let relatedDataContent = `<h4>Latest update</h4>`;
@@ -457,7 +461,8 @@ const fetchLastFirebaseRelatedData = obId => {
           path: "hounslow/300x400/",
           photoId: propObject.photo
         });
-        document.querySelector(".modal-related-image").style = "display:block";
+        document.querySelector(".modal-related-image").style.cssText =
+          "display:block";
       }
     });
 };
@@ -475,7 +480,7 @@ const fetchPhotoFromFBStorage = ({ parentEl, path, photoId }) => {
         })
         .then(imageBlob => {
           parentEl.src = URL.createObjectURL(imageBlob);
-          parentEl.style.width = "100%";
+          parentEl.style.cssText = "width:100%";
         })
         .catch(error => {
           //alert ("Error!:", error.message)
@@ -530,8 +535,8 @@ const userLogout = () => {
     .btnLogout()
     .then(data => {
       console.log("loggout:");
-      document.querySelector("canvas").style.display = "none";
-      document.getElementById("mapsplash").style.display = "block";
+      document.querySelector("canvas").style.cssText = "display:none";
+      document.getElementById("mapsplash").style.cssText = "display:block";
     })
     .catch(error => {
       console.log("error in logout!");
