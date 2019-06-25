@@ -9,7 +9,7 @@ const state = {};
 state.settings = {};
 state.about = {};
 state.about.version = "0.9.025";
-state.about.releaseDate = "24nd June 2019";
+state.about.releaseDate = "24th June 2019";
 state.about.aboutContent = `<p>Local Authority open spaces asset condition monitoring Web App</p>
 <p>Version: ${state.about.version}</p> <p>Released: ${
   state.about.releaseDate
