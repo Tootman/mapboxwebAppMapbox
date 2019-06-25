@@ -104,7 +104,7 @@ const armIsStyleLoaded = () => {
     //map.setZoom(state.userProfile.zoom);
     map.setZoom(11);
     document.getElementById("map-name").innerHTML =
-      " - " + state.settings.maps[mapID].mapName;
+      " - " + state.userProfile.mapboxMapName;
   }
 };
 
@@ -179,16 +179,6 @@ const initApp = () => {
 };
 
 const attachMapListeners = () => {
-  document
-    .getElementById("select-hounslow-map")
-    .addEventListener("click", () => {
-      selectNewMap("hounslowBorough");
-    });
-  document
-    .getElementById("select-richmond-map")
-    .addEventListener("click", () => {
-      selectNewMap("richmondBorough");
-    });
   document.getElementById("about-nav-link").addEventListener("click", () => {
     showAboutBox();
   });
