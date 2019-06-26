@@ -38,24 +38,10 @@
       
         </li>
     -->
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            User</a>
-          <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            <div>
-              <p id="Login-status-message"> Please log in </p>
-              <div id="login-form">
-                <input type="email" class="form-control" id="emailInput" placeholder="your email" />
-                <br>
-                <input type="password" class="form-control" id="passwordInput" placeholder="your password" />
-                <br>
-              </div>
-              <button id="login-btn" class="btn btn-primary">Log in</button>
-              <button id="logout-btn" class="btn btn-primary">Log out </button>
-            </div>
-          </div>
+      
+         <li class="nav-item"> <a id="about-nav-link" href="#" class="nav-link" data-toggle="modal" data-target = "#modal-login-form">Login</a>
         </li>
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown" >
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Options
           </a>
@@ -100,33 +86,40 @@
         </div>
         <!-- Modal footer -->
         <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+          <!-- <button type="button" class="btn btn-danger" data-dismiss="modal">Close window</button> -->
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Asset info Modal -->
-  <div class="modal fade" id="asset-infobox">
-    <div class=" modal-dialog">
+  <!-- login Form  -->
+  
+  <div class="modal fade" id="modal-login-form">
+    <div  class="modal-dialog">
       <div class="modal-content">
+
         <!-- Modal Header -->
         <div class="modal-header">
-          <dt class="modal-title" id="asset-infobox-title">Modal Heading</dt>
+          <h4 class="modal-title" id="login-form-title">User login form</h4>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
         <!-- Modal body -->
         <div class="modal-body">
-          <div class="modal-related-data"></div>
-          <img class="modal-related-image"></img>
-          <hr>
-           <h4>Original data </h4> 
-          <div class="modal-feature-attr"></div>
-          <img class="modal-feature-photo"></img>
+          <div>
+              <p id="Login-status-message"> Please log in </p>
+              <div id="login-form">
+                <input type="email" class="form-control" id="emailInput" placeholder="your email" />
+                <br>
+                <input type="password" class="form-control" id="passwordInput" placeholder="your password" />
+                <br>
+              </div>
+              <button id="login-btn" class="btn btn-primary">Log in</button>
+              <button id="logout-btn" class="btn btn-primary">Log out </button>
+            </div>
         </div>
         <!-- Modal footer -->
         <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+          
         </div>
       </div>
     </div>
