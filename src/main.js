@@ -10,7 +10,9 @@ state.settings = {};
 state.about = {};
 state.about.version = "0.9.025";
 state.about.releaseDate = "24th June 2019";
-state.about.aboutContent = `<p>Local Authority open spaces asset condition monitoring Web App</p>
+state.about.aboutContent = `<h3> Open spaces asset condition monitoring Webmap</h3>
+        <p><a href="https:orcl.co.uk"> Occam's Razor Consulting Ltd</a></p>
+        
 <p>Version: ${state.about.version}</p> <p>Released: ${
   state.about.releaseDate
 }</p>
