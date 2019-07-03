@@ -12,7 +12,7 @@ state.about.version = "0.9.025";
 state.about.releaseDate = "24th June 2019";
 state.about.aboutContent = `<h3> Open spaces asset condition monitoring Webmap</h3>
         <p><a href="https:orcl.co.uk"> Occam's Razor Consulting Ltd</a></p>
-        
+
 <p>Version: ${state.about.version}</p> <p>Released: ${
   state.about.releaseDate
 }</p>
@@ -53,7 +53,8 @@ state.settings.maps.hounslowBorough = {
     lat: 51.44156782214026,
     lng: -0.4432747195056663
   },
-  firebaseMapId: "-LR7CewcYJ2ZUDgCJSK8",
+  //  firebaseMapId: "-LR7CewcYJ2ZUDgCJSK8", // original map
+  firebaseMapId: "-Lim_FNeLpNgxtQDhFLL", // 2018 updated map (relData only)
   hasRelatedData: true,
   zoom: 11
 };
