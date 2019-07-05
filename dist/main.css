@@ -11,7 +11,7 @@ body {
 .mapboxgl-popup-anchor-top,
 .mapboxgl-popup-anchor-top-left,
 .mapboxgl-popup-anchor-top-right {
- max-width: 320px
+  max-width: 320px;
 }
 
 /*
@@ -50,10 +50,10 @@ left: 0;
 */
 
 .modal-related-data h4 {
-background-color: #51ac74;
-color: white;
-text-align: center;
-padding: 2px;
+  background-color: #51ac74;
+  color: white;
+  text-align: center;
+  padding: 2px;
 }
 
 #map {
@@ -70,15 +70,14 @@ padding: 2px;
 }
 */
 a.dropdown-item.nav-linkx.navbar-collapse:hover {
-    color: white;
-    background-color: dimgrey;
+  color: white;
+  background-color: dimgrey;
 }
 
-.navbar-expand-lg .navbar-nav .dropdown-menu{
-    max-height: 300px;
-    overflow-y: scroll;
+.navbar-expand-lg .navbar-nav .dropdown-menu {
+  max-height: 300px;
+  overflow-y: scroll;
 }
-
 
 /*the container must be positioned relative:*/
 .autocomplete {
@@ -87,18 +86,14 @@ a.dropdown-item.nav-linkx.navbar-collapse:hover {
 }
 
 input {
-
   background-color: #f1f1f1;
-
-
 }
 
-input[type=text] {
+input[type="text"] {
   background-color: #f1f1f1;
-
 }
 
-input[type=submit] {
+input[type="submit"] {
   background-color: DodgerBlue;
   color: #fff;
   cursor: pointer;
@@ -135,34 +130,58 @@ input[type=submit] {
 }
 
 #myInputautocomplete-list {
-    max-height: 10em;
-    overflow-y: scroll;
+  max-height: 10em;
+  overflow-y: scroll;
 }
 
 .modal-body {
-    /* padding: 0rem; */
+  /* padding: 0rem; */
 }
 
-h4, .h4 {
-size: 1.1rem
+h4,
+.h4 {
+  size: 1.1rem;
 }
 
-.table-sm td, .table-sm th {
-*/
-  padding-left: 1em;
+.table-sm td,
+.table-sm th {
+  */padding-left: 1em;
   padding-right: 0em;
   padding-top: 0.4rem;
   padding-bottom: 0.4rem;
 }
 
 .table {
-font-size: small;
+  font-size: small;
 }
 
 .modal.show .modal-dialog {
-    box-shadow: 8px 6px 10px 1px rgba(0, 0, 0, 0.4);
+  box-shadow: 8px 6px 10px 1px rgba(0, 0, 0, 0.4);
 }
 
 .dropdown-menu.show > div {
-    margin-left: 1em;
+  margin-left: 1em;
+}
+
+.loader-spinner-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+}
+
+.loader-spinner-container > .spinner-border {
+  width: 80px;
+  height: 80px;
+  color: grey;
+  font-size: 2em;
+}
+
+.loading-map-text {
+  font-size: 2em;
+  /* text-align: left; */
+  position: relative;
+  right: 45px;
+  top: 10px;
+  background-color: #ffffff73; // semitranparent white
+  padding: 0.5em;
 }

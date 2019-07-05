@@ -30,35 +30,6 @@ nv - not visable (unable to  assess condition) <br>
 pv - partially visable (unable to  assess condition)
 </p>`;
 state.sitesFeatureCollection = {};
-state.settings.maps = {};
-state.settings.maps.richmondBorough = {
-  url: "mapbox://styles/dansimmons/cjqusg2fq1jp62srv0zdgz6c5",
-  //url: "mapbox://styles/dansimmons/cjsa8mwbw2bts1gs6p3jdte1o",
-  mapName: "Richmond Borough parks",
-  dataSource: "richmondsitenames-EPSG-4326-23yist",
-  sitesDataSet: "cjsoewq710bcn2xmoupim2gi5",
-  center: {
-    lat: 51.443858500160644,
-    lng: -0.3215425160765335
-  },
-  hasRelatedData: false,
-  zoom: 11
-};
-state.settings.maps.hounslowBorough = {
-  url: "mapbox://styles/dansimmons/cjrrodbqq01us2slmro016y8b",
-  mapName: "Hounslow Borough parks",
-  dataSource: "hounslow-borough-park-names-p-9yc84m",
-  sitesDataSet: "cjsm0gxi30v872xp42mzlgep0", // todo - note this not rendered- and is INDEPENDENT of tileset layer for sites
-  center: {
-    lat: 51.44156782214026,
-    lng: -0.4432747195056663
-  },
-  //  firebaseMapId: "-LR7CewcYJ2ZUDgCJSK8", // original map
-  firebaseMapId: "-Lim_FNeLpNgxtQDhFLL", // 2018 updated map (relData only)
-  hasRelatedData: true,
-  zoom: 11
-};
-state.settings.currentMapId = "hounslowBorough";
 state.sitesQueryResult = {};
 state.fbDatabase = {};
 state.userProfile = {};
@@ -100,29 +71,34 @@ const armIsStyleLoaded = () => {
   if (map.isStyleLoaded()) {
     map.off("data", armIsStyleLoaded);
     console.log("finally loaded");
-    const mapID = state.settings.currentMapId;
+    document.getElementById("loader-spinner-container").style.cssText =
+      "display:none";
+    //const mapID = state.settings.currentMapId;
     // note that below takes settings from UserProfile NOT from local settings
     // it is assumed that local settings center and zoom will be removed soon
     //map.setCenter(state.userProfile.center);
     //map.setZoom(state.userProfile.zoom);
-    map.setZoom(11);
+    //map.setZoom(11);
     document.getElementById("map-name").innerHTML =
       " - " + state.userProfile.mapboxMapName;
   }
 };
 
 const selectNewMap = mapID => {
-  map.setStyle(state.settings.maps[mapID].url);
+  map.setStyle(state.userProfile.mapboxStyleId);
   document.querySelector("#satellite-layer-chkbox").checked = false;
-  state.settings.currentMapId = mapID; // fudge - come back to
+  //state.settings.currentMapId = mapID; // fudge - come back to
   map.on("data", armIsStyleLoaded);
   document.getElementById("navbarToggler").classList.remove("show");
-  loadSiteNamesDatasetLayer(state.settings.maps[mapID].sitesDataSet);
+  //loadSiteNamesDatasetLayer(state.settings.maps[mapID].sitesDataSet);
+  loadSiteNamesDatasetLayer(state.userProfile.mapboxSitesDataSet);
 };
 
 const selectNewMapWithAccess = userProfile => {
   mapboxgl.accessToken = userProfile.mapboxAccessToken;
   map.setStyle(userProfile.mapboxStyleId);
+  map.setCenter(state.userProfile.center);
+  map.setZoom(state.userProfile.zoom);
   document.querySelector("#satellite-layer-chkbox").checked = false;
   //state.settings.currentMapId = mapID; // fudge - come back to
   map.on("data", armIsStyleLoaded);
@@ -161,7 +137,8 @@ const initApp = () => {
       document.getElementById("logout-btn").style.cssText = "display:block";
       document.getElementById("login-form").style.cssText = "display:none";
       document.querySelector("canvas").style.cssText = "display:block";
-      document.getElementById("mapsplash").style.cssText = "display:none";
+      //document.getElementById("mapsplash").style.cssText = "display:none";
+
       selectNewMapWithAccess(state.userProfile);
     });
   };
@@ -215,7 +192,7 @@ const attachMapListeners = () => {
     document.querySelector(".modal-related-image").style.cssText =
       "display:none"; // clear photo
 
-    if (state.settings.maps[state.settings.currentMapId].hasRelatedData) {
+    if (state.userProfile.hasRelatedData) {
       let obType = feature.geometry.type; // need to refactor to func
       if (feature.geometry.type == "MultiPolygon") {
         obType = "Polygon";
@@ -273,9 +250,13 @@ const map = new mapboxgl.Map({
   container: "map",
   //style: (state.settings.maps[state.settings.currentMapId].url), // contains all layers with data - Richmond
   //style: 'mapbox://styles/dansimmons/cjrrodbqq01us2slmro016y8b', //hounslow
-  center: state.settings.maps[state.settings.currentMapId].center,
-  zoom: 13,
-  maxZoom: 23,
+  //center: state.userProfile.center,
+  center: {
+    lat: 51.443858500160644,
+    lng: -0.3215425160765335
+  },
+  zoom: 11,
+  maxZoom: 24,
   minZoom: 10,
   sprite: "mapbox://sprites/mapbox/bright-v8" //
 });
@@ -344,7 +325,7 @@ const searchBoxOnFocus = () => {
   const mapId = state.settings.currentMapId;
   //const siteNames = siteNamesArr('richmondsitenames-EPSG-4326-23yist')
   state.sitesQueryResult = map.querySourceFeatures("composite", {
-    sourceLayer: state.settings.maps[mapId].dataSource
+    sourceLayer: state.userProfile.mapboxDataSource
     // ,filter: ['==', 'Site_Name', 'Grove Road Gardens']
   });
   const siteNames = state.sitesQueryResult.map(feature => {
@@ -394,36 +375,15 @@ const showAboutBox = () => {
   console.log("aboutBox!");
 };
 
-const populateDropDownSites = () => {
-  // not now used
-  const el = document.getElementById("site-dropdown-div");
-  el.innerHTML = null;
-  let myList = "";
-  //const sites = siteNamesArr('richmondsitenames-EPSG-4326-23yist')
-  const mapId = state.settings.currentMapId;
-  const sitesArray = map.querySourceFeatures("composite", {
-    sourceLayer: state.settings.maps[mapId].dataSource
-    // ,filter: ['==', 'Site_Name', 'Grove Road Gardens']
-  });
-
-  sitesArray.map(feature => {
-    const siteName = feature.properties.Site_Name || feature.properties.Site;
-    myList += `<a href="#" class="dropdown-item nav-linkx navbar-collapse"  onClick = "flyTo('${siteName}')">${siteName})</a> `;
-  });
-  myList += `<hr><p style="color:white;padding:1em; background-color:#b2715d">If you can't see the site <br> you are looking for<br> then try zooming out</p>`;
-  myList += `<button class="btn btn-primary "id="Show-all-button" onClick="reseToBoundsOfProject()">Show all</button>`;
-  el.innerHTML = myList;
-};
-
 const reseToBoundsOfProject = () => {
   const mapId = state.settings.currentMapId;
-  map.setCenter(state.settings.maps[mapId].center);
-  map.setZoom(state.settings.maps[mapId].zoom);
+  map.setCenter(state.userProfile.center);
+  map.setZoom(state.userProfile.zoom);
 };
 
 const fetchLastFirebaseRelatedData = obId => {
   const path = `/App/Maps/${
-    state.settings.maps[state.settings.currentMapId].firebaseMapId
+    state.userProfile.parentRelDataMapHash
   }/Related/${obId}`;
   console.log("path:", path);
   state.fbDatabase
