@@ -71,8 +71,7 @@ const armIsStyleLoaded = () => {
   if (map.isStyleLoaded()) {
     map.off("data", armIsStyleLoaded);
     console.log("finally loaded");
-    document.getElementById("loader-spinner-container").style.cssText =
-      "display:none";
+    document.getElementById("loader-spinner-container").style.display = "none";
     //const mapID = state.settings.currentMapId;
     // note that below takes settings from UserProfile NOT from local settings
     // it is assumed that local settings center and zoom will be removed soon
@@ -137,6 +136,9 @@ const initApp = () => {
       document.getElementById("logout-btn").style.display = "block";
       document.getElementById("login-form").style.display = "none";
       document.querySelector("canvas").style.display = "block";
+      $("#modal-login-form").modal("hide");
+      document.getElementById("loader-spinner-container").style.display =
+        "inline";
       //document.getElementById("mapsplash").style.display = "none";
       selectNewMapWithAccess(state.userProfile);
     });
@@ -150,8 +152,11 @@ const initApp = () => {
     document.getElementById("logout-btn").style.display = "none";
     document.getElementById("login-form").style.display = "block";
     document.querySelector("canvas").style.display = "none";
-    document.getElementById("mapsplash").style.display = "block";
+    document.getElementById("loader-spinner-container").style.display = "none";
+    //document.getElementById("mapsplash").style.display = "block";
     console.log("logged out - callback");
+    //document.getElementById("login-nav-link").click(); // hacky - should be cleaner using js
+    $("#modal-login-form").modal("show");
   };
 
   myUser.OnAuthChangedListener(loggedIn, loggedOut);
