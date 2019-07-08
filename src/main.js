@@ -8,8 +8,8 @@ import { User } from "./User.js";
 const state = {};
 state.settings = {};
 state.about = {};
-state.about.version = "0.9.025";
-state.about.releaseDate = "24th June 2019";
+state.about.version = "0.9.030";
+state.about.releaseDate = "8th July 2019";
 state.about.aboutContent = `<h3> Open spaces asset condition monitoring Webmap</h3>
         <p><a href="https:orcl.co.uk"> Occam's Razor Consulting Ltd</a></p>
 
