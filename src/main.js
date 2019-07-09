@@ -11,7 +11,7 @@ state.about = {};
 state.about.version = "0.9.030";
 state.about.releaseDate = "8th July 2019";
 state.about.aboutContent = `<h3> Open spaces asset condition monitoring Webmap</h3>
-        <p><a href="https:orcl.co.uk"> Occam's Razor Consulting Ltd</a></p>
+        <p><a href="https:orcl.co.uk" title="Occam's Razor Consulting website"  target="_blank"> Occam's Razor Consulting Ltd</a></p>
 
 <p>Version: ${state.about.version}</p> <p>Released: ${
   state.about.releaseDate
@@ -79,7 +79,7 @@ const armIsStyleLoaded = () => {
     //map.setZoom(state.userProfile.zoom);
     //map.setZoom(11);
     document.getElementById("map-name").innerHTML =
-      " - " + state.userProfile.mapboxMapName;
+      state.userProfile.mapboxMapName;
   }
 };
 
@@ -98,6 +98,7 @@ const selectNewMapWithAccess = userProfile => {
   map.setStyle(userProfile.mapboxStyleId);
   map.setCenter(state.userProfile.center);
   map.setZoom(state.userProfile.zoom);
+
   document.querySelector("#satellite-layer-chkbox").checked = false;
   //state.settings.currentMapId = mapID; // fudge - come back to
   map.on("data", armIsStyleLoaded);
@@ -139,6 +140,17 @@ const initApp = () => {
       $("#modal-login-form").modal("hide");
       document.getElementById("loader-spinner-container").style.display =
         "inline";
+
+      document
+        .querySelector(".mapboxgl-ctrl-zoom-in")
+        .setAttribute("title", "Zoom In");
+      document
+        .querySelector(".mapboxgl-ctrl-zoom-out")
+        .setAttribute("title", "Zoom Out");
+      document
+        .querySelector(".mapboxgl-ctrl-geolocate")
+        .setAttribute("title", "GPS location");
+
       //document.getElementById("mapsplash").style.display = "none";
       selectNewMapWithAccess(state.userProfile);
     });
@@ -264,7 +276,11 @@ const map = new mapboxgl.Map({
   sprite: "mapbox://sprites/mapbox/bright-v8" //
 });
 
-map.addControl(new mapboxgl.NavigationControl());
+map.addControl(
+  new mapboxgl.NavigationControl({
+    showCompass: false
+  })
+);
 map.addControl(
   new mapboxgl.GeolocateControl({
     positionOptions: {
