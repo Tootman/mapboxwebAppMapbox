@@ -15,13 +15,23 @@
   "devDependencies": {
     "@babel/core": "^7.3.4",
     "@babel/preset-env": "^7.3.4",
+    "autoprefixer": "^9.6.1",
     "babel-loader": "^8.0.5",
     "babel-plugin-transform-remove-console": "^6.9.4",
+    "css-loader": "^3.0.0",
+    "exports-loader": "^0.7.0",
+    "node-sass": "^4.12.0",
+    "postcss-loader": "^3.0.0",
+    "sass-loader": "^7.1.0",
+    "style-loader": "^0.23.1",
     "webpack": "^4.29.6",
     "webpack-cli": "^3.2.3",
     "webpack-dev-server": "^3.2.1"
   },
   "dependencies": {
-    "firebase": "^5.8.6"
+    "bootstrap": "^4.3.1",
+    "firebase": "^5.8.6",
+    "jquery": "^3.4.1",
+    "popper.js": "^1.15.0"
   }
 }
