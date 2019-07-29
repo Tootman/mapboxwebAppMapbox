@@ -1,6 +1,15 @@
 "use strict";
-import firebase from "firebase";
+import firebase from "firebase/app";
+import "firebase/storage";
+import "firebase/database";
 import { User } from "./User.js";
+import $ from "jquery";
+import "bootstrap";
+import "./main.scss";
+import bbox from "@turf/bbox";
+//require("./mapbox-gl");
+import mapboxgl from "mapbox-gl";
+//import {}} from "mapbox-gl
 
 // --- setup state  -----
 
@@ -8,8 +17,8 @@ import { User } from "./User.js";
 const state = {};
 state.settings = {};
 state.about = {};
-state.about.version = "0.9.030";
-state.about.releaseDate = "8th July 2019";
+state.about.version = "0.9.031";
+state.about.releaseDate = "10th July 2019";
 state.about.aboutContent = `<h3> Open spaces asset condition monitoring Webmap</h3>
         <p><a href="https:orcl.co.uk" title="Occam's Razor Consulting website"  target="_blank"> Occam's Razor Consulting Ltd</a></p>
 
@@ -137,7 +146,7 @@ const initApp = () => {
       document.getElementById("logout-btn").style.display = "block";
       document.getElementById("login-form").style.display = "none";
       document.querySelector("canvas").style.display = "block";
-      $("#modal-login-form").modal("hide");
+      //$("#modal-login-form").modal("hide");
       document.getElementById("loader-spinner-container").style.display =
         "inline";
 
@@ -168,7 +177,7 @@ const initApp = () => {
     //document.getElementById("mapsplash").style.display = "block";
     console.log("logged out - callback");
     //document.getElementById("login-nav-link").click(); // hacky - should be cleaner using js
-    $("#modal-login-form").modal("show");
+    //$("#modal-login-form").modal("show");
   };
 
   myUser.OnAuthChangedListener(loggedIn, loggedOut);
@@ -383,7 +392,7 @@ const flyTo = siteName => {
     return prop_name == siteName;
   });
   console.log("site:", site);
-  map.fitBounds(turf.bbox(site[0])); // fails with array
+  map.fitBounds(bbox(site[0])); // fails with array
   //turf.bbox()
   //document.getElementById('myInput').value=""
 };

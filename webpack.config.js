@@ -1,4 +1,9 @@
 const path = require("path");
+// const webpack = require("webpack");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+//const BundleAnalyzerPlugin = require("webpack-bundle-analyzer");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 
 module.exports = {
   entry: "./src/main.js",
@@ -23,31 +28,40 @@ module.exports = {
         }
       },
       {
-        test: /\.(scss)$/,
+        test: /\.scss$/,
         use: [
-          {
-            // Adds CSS to the DOM by injecting a `<style>` tag
-            loader: "style-loader"
-          },
-          {
-            // Interprets `@import` and `url()` like `import/require()` and will resolve them
-            loader: "css-loader"
-          },
-          {
-            // Loader for webpack to process CSS with PostCSS
-            loader: "postcss-loader",
-            options: {
-              plugins: function() {
-                return [require("autoprefixer")];
-              }
-            }
-          },
-          {
-            // Loads a SASS/SCSS file and compiles it to CSS
-            loader: "sass-loader"
-          }
+          // fallback to style-loader in development
+          process.env.NODE_ENV !== "production"
+            ? //"style-loader"
+              MiniCssExtractPlugin.loader
+            : MiniCssExtractPlugin.loader,
+          "css-loader",
+          "sass-loader"
         ]
       }
     ]
-  }
+  },
+  plugins: [
+    // new cleanPlugin(['build']),
+
+    new HtmlWebpackPlugin({
+      //hash: true,
+      template: "./index.html",
+      minify: {
+        collapseWhitespace: true,
+        removeComments: true,
+        removeRedundantAttributes: true,
+        removeScriptTypeAttributes: true,
+        removeStyleLinkTypeAttributes: true,
+        minifyCSS: true
+      }
+    }),
+    new MiniCssExtractPlugin({
+      // Options similar to the same options in webpackOptions.output
+      // both options are optional
+      filename: "bundle.css"
+    }),
+    // ,new BundleAnalyzerPlugin()
+    new OptimizeCssAssetsPlugin()
+  ]
 };
