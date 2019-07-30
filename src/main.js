@@ -17,8 +17,8 @@ import mapboxgl from "mapbox-gl";
 const state = {};
 state.settings = {};
 state.about = {};
-state.about.version = "0.9.031";
-state.about.releaseDate = "10th July 2019";
+state.about.version = "0.9.032";
+state.about.releaseDate = "29 July 2019";
 state.about.aboutContent = `<h3> Open spaces asset condition monitoring Webmap</h3>
         <p><a href="https:orcl.co.uk" title="Occam's Razor Consulting website"  target="_blank"> Occam's Razor Consulting Ltd</a></p>
 
