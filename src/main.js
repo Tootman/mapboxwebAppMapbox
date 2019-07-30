@@ -184,6 +184,20 @@ const initApp = () => {
 };
 
 const attachMapListeners = () => {
+  document
+    .querySelector("#vegetation-layer-chkbox")
+    .addEventListener("change", e => {
+      console.log("clicked!:", e.target.checked);
+      if (e.target.checked) {
+        pointsAndLineLayers.push("veglayer");
+      } else {
+        pointsAndLineLayers = pointsAndLineLayers.filter(layer => {
+          return layer != "veglayer";
+        });
+        console.log(allLayers);
+      }
+    });
+
   document.getElementById("about-nav-link").addEventListener("click", () => {
     showAboutBox();
   });
@@ -321,7 +335,6 @@ pointsAndLineLayers.push("points-symbol");
 
 const allLayers = pointsAndLineLayers;
 allLayers.push("polygons");
-
 /*
 
 */
