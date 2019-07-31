@@ -103,10 +103,50 @@ const selectNewMap = mapID => {
 };
 
 const selectNewMapWithAccess = userProfile => {
+  const htmlFromStr = domstring => {
+    // quick hack to inject some html - come back to ...
+    const html = new DOMParser().parseFromString(domstring, "text/html");
+    return html.body.firstChild;
+  };
+
   mapboxgl.accessToken = userProfile.mapboxAccessToken;
   map.setStyle(userProfile.mapboxStyleId);
   map.setCenter(state.userProfile.center);
   map.setZoom(state.userProfile.zoom);
+
+  const addSelectableMapboxLayersToNav = userProfileOb => {
+    console.log("profile:", userProfileOb);
+    if (userProfileOb.selectableMapboxLayers) {
+      userProfileOb.selectableMapboxLayers.map(item => {
+        // add checkbox etc to dropdown menu
+        const optionMenu = document.getElementById("options-dropdown");
+        optionMenu.append(
+          htmlFromStr(
+            `<div class="form-check">
+              <input type="checkbox" class="form-check-input" name="vegetation-layer-chkbox" id="vegetation-layer-chkbox"/>
+              <label class="form-check-label" for="vegetation-layer-chkbox">Show vegetation </label>
+            </div>`
+          )
+        );
+      });
+
+      document
+        .querySelector("#vegetation-layer-chkbox")
+        .addEventListener("change", e => {
+          console.log("clicked!:", e.target.checked);
+          if (e.target.checked) {
+            pointsAndLineLayers.push("veglayer");
+            map.setLayoutProperty("veglayer", "visibility", "visible");
+          } else {
+            map.setLayoutProperty("veglayer", "visibility", "none");
+            pointsAndLineLayers = pointsAndLineLayers.filter(layer => {
+              return layer != "veglayer";
+            });
+            console.log(allLayers);
+          }
+        });
+    }
+  };
 
   document.querySelector("#satellite-layer-chkbox").checked = false;
   //state.settings.currentMapId = mapID; // fudge - come back to
@@ -114,6 +154,7 @@ const selectNewMapWithAccess = userProfile => {
   //document.getElementById("navbarToggler").classList.remove("show");
   loadSiteNamesDatasetLayer(userProfile.mapboxSitesDataSet);
   attachMapListeners();
+  addSelectableMapboxLayersToNav(state.userProfile);
 };
 
 // ------ init -------------------------------
@@ -135,6 +176,7 @@ const initApp = () => {
   console.log("initApp!");
   state.fbDatabase = initFirebase();
   const myUser = User();
+
   const loggedIn = myUid => {
     // logged in Func
     getUserProfileFromFirebase(myUid).then(snapshot => {
@@ -184,22 +226,6 @@ const initApp = () => {
 };
 
 const attachMapListeners = () => {
-  document
-    .querySelector("#vegetation-layer-chkbox")
-    .addEventListener("change", e => {
-      console.log("clicked!:", e.target.checked);
-      if (e.target.checked) {
-        pointsAndLineLayers.push("veglayer");
-        map.setLayoutProperty("veglayer", "visibility", "visible");
-      } else {
-        map.setLayoutProperty("veglayer", "visibility", "none");
-        pointsAndLineLayers = pointsAndLineLayers.filter(layer => {
-          return layer != "veglayer";
-        });
-        console.log(allLayers);
-      }
-    });
-
   document.getElementById("about-nav-link").addEventListener("click", () => {
     showAboutBox();
   });

@@ -6,6 +6,5 @@
         "debug": true
       }
     ]
-  ],
-  "plugins": ["transform-remove-console"]
+  ]
 }
