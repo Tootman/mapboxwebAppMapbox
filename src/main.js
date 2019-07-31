@@ -190,7 +190,9 @@ const attachMapListeners = () => {
       console.log("clicked!:", e.target.checked);
       if (e.target.checked) {
         pointsAndLineLayers.push("veglayer");
+        map.setLayoutProperty("veglayer", "visibility", "visible");
       } else {
+        map.setLayoutProperty("veglayer", "visibility", "none");
         pointsAndLineLayers = pointsAndLineLayers.filter(layer => {
           return layer != "veglayer";
         });
