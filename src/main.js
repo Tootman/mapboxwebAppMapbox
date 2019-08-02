@@ -461,30 +461,31 @@ const fetchLastFirebaseRelatedData = obId => {
     .limitToLast(1)
     .once("value")
     .then(snap => {
-      // set popup from props of the last relData entry  for the feature
-      //const propObject = Object.values(snap.val())[0]; // cannot use due to IE11
-      const mySnap = snap.val();
-      const propObject = mySnap[Object.keys(mySnap)[0]];
+      try {
+        // attept to read related data child note from firebase
+        const mySnap = snap.val();
+        const propObject = mySnap[Object.keys(mySnap)[0]];
+        if (propObject) {
+          let relatedDataContent = `<h4>Latest update</h4>`;
+          relatedDataContent += propSet(propObject);
+          document.querySelector(
+            ".modal-related-data"
+          ).innerHTML = relatedDataContent;
+        }
 
-      //console.log("snap.val():", snap.val());
-
-      //  console.log("propObject:", Object.values(snap.val())[0]);
-      if (propObject) {
-        //document.getElementById("reldata").innerHTML = propSet(propObject)
-        let relatedDataContent = `<h4>Latest update</h4>`;
-        relatedDataContent += propSet(propObject);
-        document.querySelector(
-          ".modal-related-data"
-        ).innerHTML = relatedDataContent;
-      }
-
-      if (propObject.photo) {
-        fetchPhotoFromFBStorage({
-          parentEl: document.querySelector(".modal-related-image"),
-          path: "hounslow/300x400/",
-          photoId: propObject.photo
-        });
-        document.querySelector(".modal-related-image").style = "display:block";
+        if (propObject.photo) {
+          fetchPhotoFromFBStorage({
+            parentEl: document.querySelector(".modal-related-image"),
+            path: "hounslow/300x400/",
+            photoId: propObject.photo
+          });
+          document.querySelector(".modal-related-image").style =
+            "display:block";
+        }
+      } catch (error) {
+        console.log("relatedData failed");
+        //document.querySelector(".modal-related-data").innerHTML =
+        //  "(no updated data available)";
       }
     });
 };
