@@ -484,8 +484,7 @@ const fetchLastFirebaseRelatedData = obId => {
         }
       } catch (error) {
         console.log("relatedData failed");
-        //document.querySelector(".modal-related-data").innerHTML =
-        //  "(no updated data available)";
+        document.querySelector(".modal-related-data").innerHTML = "";
       }
     });
 };
