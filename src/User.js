@@ -35,6 +35,7 @@ export const User = function() {
         function() {
           // Sign-out successful.
           console.log("successfully signed out");
+          return true;
           //userSignedOut();
         },
         function(error) {
