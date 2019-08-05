@@ -17,27 +17,15 @@ import mapboxgl from "mapbox-gl";
 const state = {};
 state.settings = {};
 state.about = {};
-state.about.version = "0.9.032";
-state.about.releaseDate = "29 July 2019";
-state.about.aboutContent = `<h3> Open spaces asset condition monitoring Webmap</h3>
-        <p><a href="https:orcl.co.uk" title="Occam's Razor Consulting website"  target="_blank"> Occam's Razor Consulting Ltd</a></p>
-
-<p>Version: ${state.about.version}</p> <p>Released: ${
+state.about.version = "0.9.033";
+state.about.releaseDate = "5th Aug 2019g";
+state.about.aboutContent = `<h3> Open spaces asset condition monitoring Webmap</h3><p><a href="https:orcl.co.uk" title="Occam's Razor Consulting website"  target="_blank"> Occam's Razor Consulting Ltd</a></p><p>Version: ${
+  state.about.version
+}</p> <p>Released: ${
   state.about.releaseDate
-}</p>
-<hr>
-<h4>Condition abbreviations</h4>
-<p>
-c1 - condition 1 (hazard) <br>
-c2 - condition 2 (unfit for purpose) <br>
-c3 - condition 3 <br>
-c4 - condition 4 <br>
-c5 - condition 5 <br>
-c6 - condition 6  (as new) <br>
-rm - removed  (or not found)  <br>
-nv - not visable (unable to  assess condition) <br>
-pv - partially visable (unable to  assess condition)
-</p>`;
+}</p><hr><h4>Condition abbreviations</h4><p>c1 - condition 1 (hazard) <br>c2 - condition 2 (unfit for purpose) <br>c3 - condition 3 <br>c4 - condition 4 <br>c5 - condition 5 <br>c6 - condition 6  (as new) <br>rm - removed  (or not found)  <br>nv - not visable (unable to  assess condition) <br>pv - partially visable (unable to  assess condition)</p><hr>Website © Occam's Razor Consulting Ltd 2019 <br>Contains Ordnance Survey data © Crown copyright and database right 2013
+
+`;
 state.sitesFeatureCollection = {};
 state.sitesQueryResult = {};
 state.fbDatabase = {};
@@ -186,7 +174,7 @@ const initApp = () => {
       document.getElementById("logout-btn").style.display = "block";
       document.getElementById("login-form").style.display = "none";
       document.querySelector("canvas").style.display = "block";
-      //$("#modal-login-form").modal("hide");
+      $("#modal-login-form").modal("hide");
       document.getElementById("loader-spinner-container").style.display =
         "inline";
 

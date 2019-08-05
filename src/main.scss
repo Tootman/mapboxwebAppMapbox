@@ -61,7 +61,8 @@ body {
 }
 
 #map {
-  height: 90vh;
+  height: 88vh;
+  //height: "100%";
 }
 
 a.dropdown-item.nav-linkx.navbar-collapse:hover {
@@ -191,9 +192,11 @@ h4,
   background-color: #005100 !important; /* dark green */
 }
 
+/*
 .mapboxgl-ctrl.mapboxgl-ctrl-attrib {
   display: none;
 }
+*/
 
 .navbar-dark .navbar-nav .nav-link {
   color: rgba(255, 255, 255, 0.6);
