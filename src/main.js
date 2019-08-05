@@ -474,13 +474,17 @@ const fetchLastFirebaseRelatedData = obId => {
         }
 
         if (propObject.photo) {
-          fetchPhotoFromFBStorage({
-            parentEl: document.querySelector(".modal-related-image"),
-            path: "hounslow/300x400/",
-            photoId: propObject.photo
-          });
-          document.querySelector(".modal-related-image").style =
-            "display:block";
+          try {
+            fetchPhotoFromFBStorage({
+              parentEl: document.querySelector(".modal-related-image"),
+              path: "hounslow/300x400/",
+              photoId: propObject.photo
+            });
+            document.querySelector(".modal-related-image").style =
+              "display:block";
+          } catch {
+            console.log("failed to load rel data photos");
+          }
         }
       } catch (error) {
         console.log("relatedData failed");
