@@ -192,11 +192,9 @@ h4,
   background-color: #005100 !important; /* dark green */
 }
 
-/*
-.mapboxgl-ctrl.mapboxgl-ctrl-attrib {
-  display: none;
+.mapboxgl-ctrl-attrib a {
+  color: grey;
 }
-*/
 
 .navbar-dark .navbar-nav .nav-link {
   color: rgba(255, 255, 255, 0.6);
