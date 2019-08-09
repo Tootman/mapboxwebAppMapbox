@@ -7,18 +7,13 @@ import $ from "jquery";
 import "bootstrap";
 import "./main.scss";
 import bbox from "@turf/bbox";
-//require("./mapbox-gl");
 import mapboxgl from "mapbox-gl";
-//import {}} from "mapbox-gl
 
-// --- setup state  -----
-
-//alert("End User Map v 0.9.022");
 const state = {};
 state.settings = {};
 state.about = {};
-state.about.version = "0.9.033";
-state.about.releaseDate = "5th Aug 2019g";
+state.about.version = "0.9.034";
+state.about.releaseDate = "6th Aug 2019";
 state.about.aboutContent = `<h3> Open spaces asset condition monitoring Webmap</h3><p><a href="https:orcl.co.uk" title="Occam's Razor Consulting website"  target="_blank"> Occam's Razor Consulting Ltd</a></p><p>Version: ${
   state.about.version
 }</p> <p>Released: ${
