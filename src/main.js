@@ -14,13 +14,11 @@ state.settings = {};
 state.about = {};
 state.about.version = "0.9.034";
 state.about.releaseDate = "6th Aug 2019";
-state.about.aboutContent = `<h3> Open spaces asset condition monitoring Webmap</h3><p><a href="https:orcl.co.uk" title="Occam's Razor Consulting website"  target="_blank"> Occam's Razor Consulting Ltd</a></p><p>Version: ${
-  state.about.version
-}</p> <p>Released: ${
+state.about.content = `<h3> Open spaces asset condition monitoring Webmap</h3><p> Occam's Razor Consulting Ltd</p>
+<p>Version: ${state.about.version}</p> <p>Released: ${
   state.about.releaseDate
-}</p><hr><h4>Condition abbreviations</h4><p>c1 - condition 1 (hazard) <br>c2 - condition 2 (unfit for purpose) <br>c3 - condition 3 <br>c4 - condition 4 <br>c5 - condition 5 <br>c6 - condition 6  (as new) <br>rm - removed  (or not found)  <br>nv - not visable (unable to  assess condition) <br>pv - partially visable (unable to  assess condition)</p><hr>Website © Occam's Razor Consulting Ltd 2019 <br>Contains Ordnance Survey data © Crown copyright and database right 2013
-
-`;
+}</p><p>Website © Occam's Razor Consulting Ltd 2019 <br>Contains Ordnance Survey data © Crown copyright and database right 2013
+</p>`;
 state.sitesFeatureCollection = {};
 state.sitesQueryResult = {};
 state.fbDatabase = {};
@@ -209,9 +207,11 @@ const initApp = () => {
 };
 
 const attachMapListeners = () => {
-  document.getElementById("about-nav-link").addEventListener("click", () => {
-    showAboutBox();
-  });
+  document
+    .getElementById("about-infobox-link")
+    .addEventListener("click", () => {
+      showAboutBox();
+    });
 
   map.on("moveend", function(e) {
     document.getElementById("myInput").value = "";
@@ -423,8 +423,8 @@ const flyTo = siteName => {
 
 const showAboutBox = () => {
   const el = document.getElementById("about-infobox-content");
-  el.innerHTML = state.about.aboutContent;
-  console.log("aboutBox!");
+  el.innerHTML = state.about.content;
+  //console.log("aboutBox!");
 };
 
 const reseToBoundsOfProject = () => {

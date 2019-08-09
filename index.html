@@ -44,16 +44,30 @@
   							<input type="checkbox" class="form-check-input" name="satellite-layer-chkbox" id="satellite-layer-chkbox"/>
   							<label class="form-check-label" for="satellite-layer-chkbox">Satellite view </label>
   						</div>
-            <!--
-             <div class="form-check">
-              <input type="checkbox" class="form-check-input" name="vegetation-layer-chkbox" id="vegetation-layer-chkbox"/>
-              <label class="form-check-label" for="vegetation-layer-chkbox">Show vegetation </label>
-            </div>
-          -->
+
+
         </div>
       </li>
-      <li class="nav-item"> <a id="about-nav-link" href="#" class="nav-link" data-toggle="modal" data-target = "#about-infobox">About</a>
+<!--
+			<li class="nav-item">
+				<a id="about-nav-link" href="#" class="nav-link" data-toggle="modal" data-target = "#about-infobox">About</a>
       </li>
+		-->
+
+		<li class="nav-item dropdown">
+	         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	           About
+	         </a>
+	         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+	           <a class="dropdown-item" data-toggle="modal" data-target = "#about-infobox" href="#"  aria-haspopup="true" aria-expanded="false" id="about-infobox-link">About the App</a>
+						 <a class="dropdown-item" data-toggle="modal" data-target = "#terms-infobox" href="#"  aria-haspopup="true" aria-expanded="false">Terms of use</a>
+						 <a class="dropdown-item" data-toggle="modal" data-target = "#privacy-infobox" href="#"  aria-haspopup="true" aria-expanded="false">Privacy & cookies policy</a>
+						 <a class="dropdown-item" data-toggle="modal" data-target = "#help-infobox" href="#"  aria-haspopup="true" aria-expanded="false">Help</a>
+	         </div>
+	</li>
+
+
+
     </ul>
     <form class="form-inline my-2 my-lg-0" autocomplete="off">
     	<div class="autocomplete" style="width:300px;">
@@ -79,13 +93,10 @@
 			</div>
 			<!-- Modal body -->
 			<div class="modal-body" id="about-infobox-content">
-				<h3>Occam's Razor Consulting Ltd<br>
-				Client WebMap</h3>
-				<p>Please log in</p>
+
+				<p>Sorry not yet available - please wait for App to finnish loading</p>
 			</div>
-			<!-- Modal footer -->
 			<div class="modal-footer">
-				<!-- <button type="button" class="btn btn-danger" data-dismiss="modal">Close window</button> -->
 			</div>
 		</div>
 	</div>
@@ -138,12 +149,135 @@
 				<img class="modal-feature-photo"></img>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+				<a  data-toggle="modal" data-target = "#help-infobox" id="about-modal-footer-help" href="#"  aria-haspopup="true" aria-expanded="false">Help</a>
+				<button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
 			</div>
 		</div> <!-- modal content -->
 	</div> <!-- modal dialog -->
 </div> <!-- modal fade -->
-<!-- <div><a href="/privacy-policy.html"> hello from foot!</a> </div> -->
+
+<div class="modal fade" id="terms-infobox">
+	<div class=" modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<dt class="modal-title">Terms of Use</dt>
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+			<!-- Modal body -->
+			<div class="modal-body" id="terms-infobox-content">
+
+				<p>You may view, download, and print, website pages, subject to the restrictions set out below and elsewhere
+					 in these terms and conditions.</p>
+				<p>We reserve the right to disable your user ID and password at any time without prior notice or explanation
+					- thereby suspending your access to the website material. </p>
+				<h3>Terms</h3>
+				<p>By logging into the website you are agreeing to be bound by these terms of service, and consent to our use
+					of cookies in accoradance with our Privacy policy </p>
+			<h3>Use License</h3>
+				<ul>
+					<li>All Asset condition suvery data contained in this website is the copyright of ORCL.</li>
+				<li>This website contains material which is owned by or licensed to ORCL.</li>
+				<li>This material includes, but is not limited to, condition survey and mapping data, graphics and the design,
+					layout, look, and appearance of the online map contained in the website. It is protected by intellectual property laws
+					 including, but not limited to, copyright  and cannot be copied or reproduced without prior permission from ORCL.</li>
+				 <li>The re-distribution, re-publication, or otherwise making available of the material on this website to
+					  third parties without the prior written consent of GiGL is prohibited</li>
+				 <li>You are not permitted to share your Login username and password with another organisation without
+					  the express permission from ORCL.</li>
+				<li>ORCL may terminate this licence at any time</li>
+				<li>The selling, renting, licensing, sublicense, leaseing, re-distribute, copying, duplicate, publish
+					or reproduction  from the website , on another website, without the prior written consent of ORCL
+					is prohibited, as is any attempt to decompile or reverse engineer the website computer code and scripts.</li>
+			</ul>
+
+				<h3>Disclaimer</h3>
+				<p>This website is provided on an 'as is' basis. ORCL is not liable for arrors in the computer code.
+				ORCL does not guarantee that use of this website will be compatible with all hardware and software
+				 which may be used by visitors to the site. It is however designed to be used  with commonly used
+				  modern browsers such as Chrome, Safari and Edge.</p>
+
+				<h3> Accuracy of data</h3>
+				<p>The data appearing on testname ltd's website could include typographic errors. ORCL may make changes to the data or visual design contained on its website at any time without notice. However ORCL ltd does not make any commitment to update the materials.</p>
+
+			<h3>Modifications</h3>
+				<p>ORCL may revise these terms of service for its website at any time without notice. </p>
+
+<hr>
+				<p>By using this website you are agreeing to be bound by these terms of use.</p>
+			</div>
+			<div class="modal-footer">
+					<button type="button" class="btn btn-success" data-dismiss="modal">Accept & Close</button>
+			</div>
+		</div>
+	</div>
+</div> <!-- modal -->
+
+<div class="modal fade" id="privacy-infobox">
+	<div class=" modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<dt class="modal-title">Privacy & cookies policy</dt>
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+			<!-- Modal body -->
+			<div class="modal-body" id="privacy-infobox-content">
+<p>
+				The website uses cookies to store information about your browser, and  and your interactions with the website
+				 this is done through the use of cookies, which are small text files that are stored on your computer,
+				  and accessible only to the websites which create them.
+		</p>
+		<p>
+				The website uses 'Google Analytics' and 'Mapbox' cookies.
+				The information we get from Google Analytics helps us ensure this website your needs and to help us improve it.
+				This information gathered is compiled on an aggregate, anonymous basis.
+				Further information about Google Analytics privacy policy may be obtained from <a href="https://policies.google.com/privacy" target="_blank" title="google.com/privacy">google.com/privacy</a>
+			</p>
+			<p>
+				The website also uses Mapbox mapping services which uses cookies to  track user interactions with the Mapbox API,
+				and which does include collecting the User's IP address, and retaining it for a fixed amount of time.
+				For more information on Mapbox privacy policy please see:
+				<a href="https://www.mapbox.com/privacy/#[WLaCWauc]" target="_blank" title="mapbox">mapbox.com</a>
+			</p>
+			<p>
+				This website uses Google Firebase Realtime database service. The Firebase server stores the date of the
+				 most recent login.
+			 </p>
+			 <hr>
+				<p>
+				By using our site, you consent to the collection and use of information by us.
+</p>
+			</div>
+			<div class="modal-footer">
+					<button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div> <!-- modal -->
+
+<div class="modal fade" id="help-infobox">
+	<div class=" modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<dt class="modal-title">Help</dt>
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+			<!-- Modal body -->
+			<div class="modal-body" id="help-infobox-content">
+				<h3>Asset condition abbreviations</h3>
+				<p>c1 - condition 1 (hazard) <br>
+					c2 - condition 2 (unfit for purpose) <br>
+					c3 - condition 3 <br>c4 - condition 4 <br>
+					c5 - condition 5 <br>c6 - condition 6  (as new) <br>
+					rm - removed  (or not found)  <br>
+					nv - not visable (unable to  assess condition) <br>
+					pv - partially visable (unable to  assess condition)</p>
+			</div>
+			<div class="modal-footer">
+					<button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div> <!-- modal -->
 
 </body>
 
