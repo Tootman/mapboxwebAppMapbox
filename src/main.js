@@ -12,8 +12,8 @@ import mapboxgl from "mapbox-gl";
 const state = {};
 state.settings = {};
 state.about = {};
-state.about.version = "0.9.034";
-state.about.releaseDate = "6th Aug 2019";
+state.about.version = "0.9.035";
+state.about.releaseDate = "9th Aug 2019";
 state.about.content = `<h3> Open spaces asset condition monitoring Webmap</h3><p> Occam's Razor Consulting Ltd</p>
 <p>Version: ${state.about.version}</p> <p>Released: ${
   state.about.releaseDate
