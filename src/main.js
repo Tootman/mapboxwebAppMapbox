@@ -12,8 +12,8 @@ import mapboxgl from "mapbox-gl";
 const state = {};
 state.settings = {};
 state.about = {};
-state.about.version = "0.9.035";
-state.about.releaseDate = "9th Aug 2019";
+state.about.version = "0.9.036";
+state.about.releaseDate = "25th Oct 2019";
 state.about.content = `<h3> Open spaces asset condition monitoring Webmap</h3><p> Occam's Razor Consulting Ltd</p>
 <p>Version: ${state.about.version}</p> <p>Released: ${
   state.about.releaseDate
@@ -23,6 +23,7 @@ state.sitesFeatureCollection = {};
 state.sitesQueryResult = {};
 state.fbDatabase = {};
 state.userProfile = {};
+state.projectConfig = {};
 
 const loadSiteNamesDatasetLayer = datasetId => {
   const url = `https://api.mapbox.com/datasets/v1/dansimmons/${datasetId}/features?access_token=${
@@ -180,10 +181,9 @@ const initApp = () => {
       document
         .querySelector(".mapboxgl-ctrl-geolocate")
         .setAttribute("title", "GPS location");
-
-      //document.getElementById("mapsplash").style.display = "none";
       selectNewMapWithAccess(state.userProfile);
       addSelectableMapboxLayersToNav(state.userProfile);
+      retrieveProjectConfig(state.userProfile);
     });
   };
 
@@ -500,6 +500,9 @@ const fetchPhotoFromFBStorage = ({ parentEl, path, photoId }) => {
 const propSet = p => {
   const itemList = Object.keys(p)
     .map(item => {
+      if (item == "condition") {
+        p[item] = state.projectConfig.schema.formFields.condition[p[item]];
+      }
       return `<tr><td>${item}</td><td>${p[item]}</td>`;
     })
     .join("</tr>");
@@ -551,6 +554,23 @@ const userLogout = data => {
     });
 
   */
+};
+
+const retrieveProjectConfig = userProfile => {
+  console.log("retrieve project info from Fb:", userProfile);
+  if (userProfile.projectId == null) {
+    console.log("no projectConfig (projectId) found");
+    return;
+  }
+
+  return firebase
+    .database()
+    .ref(`App/Projects/${userProfile.projectId}/`)
+    .once("value")
+    .then(result => {
+      state.projectConfig = result.val();
+      console.log("returned projectConfig:", state.projectConfig);
+    });
 };
 
 const getUserProfileFromFirebase = userId => {
