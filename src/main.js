@@ -12,7 +12,7 @@ import mapboxgl from "mapbox-gl";
 const state = {};
 state.settings = {};
 state.about = {};
-state.about.version = "0.9.036";
+state.about.version = "0.9.037";
 state.about.releaseDate = "25th Oct 2019";
 state.about.content = `<h3> Open spaces asset condition monitoring Webmap</h3><p> Occam's Razor Consulting Ltd</p>
 <p>Version: ${state.about.version}</p> <p>Released: ${
@@ -239,8 +239,8 @@ const attachMapListeners = () => {
       return;
     }
     const feature = features[0];
-    document.querySelector(".modal-related-image").style = "display:none"; // clear photo
 
+    document.querySelector(".modal-related-image").style = "display:none"; // clear photo
     if (state.userProfile.hasRelatedData) {
       let obType = feature.geometry.type; // need to refactor to func
       if (feature.geometry.type == "MultiPolygon") {
@@ -374,6 +374,7 @@ const searchBoxOnFocus = () => {
   // Function not  used since  full dataset now stored in state
   // todo: why not all orignal shp properties appearing in object todo!!??
   console.log("focus!");
+  alert("focus");
   const mapId = state.settings.currentMapId;
   //const siteNames = siteNamesArr('richmondsitenames-EPSG-4326-23yist')
   state.sitesQueryResult = map.querySourceFeatures("composite", {
@@ -382,6 +383,7 @@ const searchBoxOnFocus = () => {
   });
   const siteNames = state.sitesQueryResult.map(feature => {
     const siteName = feature.properties.Site_Name || feature.properties.Site;
+    console.log("inside sitename:", siteName);
     return siteName;
   });
   autocomplete(document.getElementById("myInput"), siteNames);
@@ -402,8 +404,9 @@ const siteNamesArr = sourceLayer => {
 
 const flyTo = siteName => {
   // queryAllFeatures
-  console.log("siteName:", siteName);
+  //console.log("siteName:", siteName);
   const siteId = state.settings.currentMapId;
+  console.log("state:", state);
   /*
         const sites = map.querySourceFeatures('composite', {
           'sourceLayer': state.settings.maps[siteId].dataSource
@@ -415,7 +418,7 @@ const flyTo = siteName => {
     const prop_name = site.properties.Site_Name || site.properties.Site;
     return prop_name == siteName;
   });
-  console.log("site:", site);
+  //console.log("site:", site);
   map.fitBounds(bbox(site[0])); // fails with array
   //turf.bbox()
   //document.getElementById('myInput').value=""
@@ -594,6 +597,7 @@ const satImageSetVisible = visible => {
 function autocomplete(inp, arr) {
   /*the autocomplete function takes two arguments,
     the text field element and an array of possible autocompleted values:*/
+  console.log("autocomplete!!!", inp, arr);
   var currentFocus;
   /*execute a function when someone writes in the text field:*/
   inp.addEventListener("input", function(e) {
