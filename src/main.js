@@ -14,7 +14,9 @@ state.settings = {};
 state.about = {};
 state.about.version = "0.9.037";
 state.about.releaseDate = "25th Oct 2019";
-state.about.content = `<h3> Open spaces asset condition monitoring Webmap</h3><p> Occam's Razor Consulting Ltd</p>
+state.about.content = `<h4> ORCL Client map</h4><p> Occam's Razor Consulting Ltd, parks and open spaces Asset map</p>
+<p> Displaying: <div id="map-name"></div></p>
+<h4> App details </h4>
 <p>Version: ${state.about.version}</p> <p>Released: ${
   state.about.releaseDate
 }</p><p>Website © Occam's Razor Consulting Ltd 2019 <br>Contains Ordnance Survey data © Crown copyright and database right 2013
@@ -69,8 +71,6 @@ const armIsStyleLoaded = () => {
     //map.setCenter(state.userProfile.center);
     //map.setZoom(state.userProfile.zoom);
     //map.setZoom(11);
-    document.getElementById("map-name").innerHTML =
-      state.userProfile.mapboxMapName;
   }
 };
 
@@ -427,6 +427,8 @@ const flyTo = siteName => {
 const showAboutBox = () => {
   const el = document.getElementById("about-infobox-content");
   el.innerHTML = state.about.content;
+  document.getElementById("map-name").innerHTML =
+    state.userProfile.mapboxMapName;
   //console.log("aboutBox!");
 };
 
