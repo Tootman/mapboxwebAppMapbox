@@ -62,7 +62,7 @@ const loadSiteNamesDatasetLayer = datasetId => {
 
 const armIsStyleLoaded = () => {
   if (map.isStyleLoaded()) {
-    map.off("data", armIsStyleLoaded);
+    // map.off("data", armIsStyleLoaded);
     console.log("finally loaded");
     document.getElementById("loader-spinner-container").style.display = "none";
     //const mapID = state.settings.currentMapId;
@@ -71,7 +71,11 @@ const armIsStyleLoaded = () => {
     //map.setCenter(state.userProfile.center);
     //map.setZoom(state.userProfile.zoom);
     //map.setZoom(11);
+  } else {
+    document.getElementById("loader-spinner-container").style.display =
+      "inline";
   }
+  console.log("armIsStyleLoaded called!");
 };
 
 const selectNewMap = mapID => {
@@ -79,6 +83,7 @@ const selectNewMap = mapID => {
   document.querySelector("#satellite-layer-chkbox").checked = false;
   //state.settings.currentMapId = mapID; // fudge - come back to
   map.on("data", armIsStyleLoaded);
+
   document.getElementById("navbarToggler").classList.remove("show");
   //loadSiteNamesDatasetLayer(state.settings.maps[mapID].sitesDataSet);
   loadSiteNamesDatasetLayer(state.userProfile.mapboxSitesDataSet);
@@ -169,8 +174,8 @@ const initApp = () => {
       document.getElementById("login-form").style.display = "none";
       document.querySelector("canvas").style.display = "block";
       $("#modal-login-form").modal("hide");
-      document.getElementById("loader-spinner-container").style.display =
-        "inline";
+      // document.getElementById("loader-spinner-container").style.display =
+      ("none");
 
       document
         .querySelector(".mapboxgl-ctrl-zoom-in")
@@ -195,7 +200,7 @@ const initApp = () => {
     document.getElementById("logout-btn").style.display = "none";
     document.getElementById("login-form").style.display = "block";
     document.querySelector("canvas").style.display = "none";
-    document.getElementById("loader-spinner-container").style.display = "none";
+    //document.getElementById("loader-spinner-container").style.display = "none";
     //document.getElementById("mapsplash").style.display = "block";
     console.log("logged out - callback");
     //document.getElementById("login-nav-link").click(); // hacky - should be cleaner using js

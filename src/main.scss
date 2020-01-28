@@ -19,7 +19,7 @@
 //@import "~bootstrap/scss/_custom-forms";
 @import "~bootstrap/scss/_nav";
 @import "~bootstrap/scss/_navbar";
-@import "~bootstrap/scss/_spinners";
+// @import "~bootstrap/scss/_spinners";
 //@import "~bootstrap/scss/_card";
 //@import "~bootstrap/scss/_breadcrumb";
 //@import "p~bootstrap/scss/_pagination";
@@ -159,11 +159,12 @@ h4,
 }
 
 .loader-spinner-container {
-  position: fixed;
-  top: 50%;
-  left: 50%;
+  position: absolute;
+  bottom: 0px;
+  z-index: 1000;
 }
 
+/*
 .loader-spinner-container > .spinner-border {
   width: 80px;
   height: 80px;
@@ -171,16 +172,21 @@ h4,
   font-size: 2em;
 }
 
+*/
+
 .loading-map-text {
   font-size: 2em;
-  /* text-align: left; */
-  position: relative;
-  right: 45px;
-  top: 10px;
-  background-color: #ffffff73; // semitranparent white
-  padding: 0.5em;
-}
 
+  /* top: 10px; */
+  background-color: hsla(0, 0%, 100%, 0.8);
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 5px;
+  pdding-bottom: 2px;
+  font-weight: 800;
+  opacity: 0.5;
+  text-align: center;
+}
 /*
 // map element when displayed in header
 #map-name {
@@ -190,6 +196,10 @@ h4,
   padding-left: 1em;
 }
 */
+
+#logo-brand-nav {
+  height: 40px;
+}
 
 #map-name {
   font-weight: bold;
