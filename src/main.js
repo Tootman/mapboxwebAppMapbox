@@ -12,8 +12,8 @@ import mapboxgl from "mapbox-gl";
 const state = {};
 state.settings = {};
 state.about = {};
-state.about.version = "0.9.038i";
-state.about.releaseDate = "22nd January 2020";
+state.about.version = "0.9.039";
+state.about.releaseDate = "28th January 2020";
 state.about.content = `<h4> ORCL Client map</h4><p> Occam's Razor Consulting Ltd, parks and open spaces Asset map</p>
 <p> Displaying: <div id="map-name"></div></p>
 <h4> App details </h4>
@@ -75,7 +75,7 @@ const armIsStyleLoaded = () => {
     document.getElementById("loader-spinner-container").style.display =
       "inline";
   }
-  console.log("armIsStyleLoaded called!");
+  // console.log("armIsStyleLoaded called!");
 };
 
 const selectNewMap = mapID => {
@@ -174,8 +174,8 @@ const initApp = () => {
       document.getElementById("login-form").style.display = "none";
       document.querySelector("canvas").style.display = "block";
       $("#modal-login-form").modal("hide");
-      // document.getElementById("loader-spinner-container").style.display =
-      ("none");
+      document.getElementById("loader-spinner-container").style.display =
+        "none";
 
       document
         .querySelector(".mapboxgl-ctrl-zoom-in")
@@ -200,7 +200,7 @@ const initApp = () => {
     document.getElementById("logout-btn").style.display = "none";
     document.getElementById("login-form").style.display = "block";
     document.querySelector("canvas").style.display = "none";
-    //document.getElementById("loader-spinner-container").style.display = "none";
+    document.getElementById("loader-spinner-container").style.display = "none";
     //document.getElementById("mapsplash").style.display = "block";
     console.log("logged out - callback");
     //document.getElementById("login-nav-link").click(); // hacky - should be cleaner using js
