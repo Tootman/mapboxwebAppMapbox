@@ -161,6 +161,7 @@ h4,
 .loader-spinner-container {
   position: absolute;
   bottom: 0px;
+  left: 100px;
   z-index: 1000;
 }
 
@@ -178,13 +179,13 @@ h4,
   font-size: 2em;
 
   /* top: 10px; */
-  background-color: hsla(0, 0%, 100%, 0.8);
+  background-color: hsla(60, 100%, 51%, 0.89);
   padding-left: 10px;
   padding-right: 10px;
   padding-top: 5px;
-  pdding-bottom: 2px;
+  padding-bottom: 2px;
   font-weight: 800;
-  opacity: 0.5;
+  opacity: 0.8;
   text-align: center;
 }
 /*
