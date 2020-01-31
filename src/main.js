@@ -166,6 +166,12 @@ const initApp = () => {
     // logged in Func
     getUserProfileFromFirebase(myUid).then(snapshot => {
       state.userProfile = snapshot.val();
+      // from rfactorerd
+      lineLayers = lineLayers.concat(state.userProfile.cliclableLineLayers);
+      pointsAndLineLayers = pointsAndLineLayers.concat(lineLayers);
+      pointsAndLineLayers.push("points-symbol");
+      allLayers = pointsAndLineLayers;
+      allLayers.push("polygons");
       document.getElementById("Login-status-message").innerHTML = `Hi ${
         state.userProfile.userName
       }`;
@@ -338,22 +344,6 @@ map.addControl(
   })
 );
 
-let lineLayers = [
-  "lines-wall",
-  "lines-fence",
-  "lines-fence-over-wall",
-  "lines-path",
-  "lines-all-other"
-]; // replace this with the name of the layer
-
-let pointsAndLineLayers = lineLayers;
-pointsAndLineLayers.push("points-symbol");
-
-const allLayers = pointsAndLineLayers;
-allLayers.push("polygons");
-/*
-
-*/
 map.on("load", e => {
   map.on("mouseenter", "points-symbol", e => {
     map.getCanvas().style.cursor = "default";
@@ -369,9 +359,12 @@ map.on("load", e => {
       map.getCanvas().style.cursor = "";
     });
   });
-
   console.log("mapresources loaded");
 });
+
+let lineLayers = []; //global
+let pointsAndLineLayers = []; // global
+let allLayers = []; // global
 
 // ------------- functions ---
 
