@@ -26,6 +26,10 @@ state.sitesQueryResult = {};
 state.fbDatabase = {};
 state.userProfile = {};
 state.projectConfig = {};
+state.clickableLayers = [];
+
+//let allLayers = [];
+//allLayers = pointsAndLineLayers.push("polygon"); // global
 
 const loadSiteNamesDatasetLayer = datasetId => {
   const url = `https://api.mapbox.com/datasets/v1/dansimmons/${datasetId}/features?access_token=${
@@ -115,14 +119,14 @@ const addSelectableMapboxLayersToNav = userProfileOb => {
       .addEventListener("change", e => {
         console.log("clicked!:", e.target.checked);
         if (e.target.checked) {
-          pointsAndLineLayers.push("veglayer");
+          state.clickableLayers.push("veglayer");
           map.setLayoutProperty("veglayer", "visibility", "visible");
         } else {
           map.setLayoutProperty("veglayer", "visibility", "none");
-          pointsAndLineLayers = pointsAndLineLayers.filter(layer => {
+          state.clickableLayers = state.clickableLayers.filter(layer => {
             return layer != "veglayer";
           });
-          console.log(allLayers);
+          //console.log(allLayers);
         }
       });
   }
@@ -167,11 +171,12 @@ const initApp = () => {
     getUserProfileFromFirebase(myUid).then(snapshot => {
       state.userProfile = snapshot.val();
       // from rfactorerd
-      lineLayers = lineLayers.concat(state.userProfile.cliclableLineLayers);
-      pointsAndLineLayers = pointsAndLineLayers.concat(lineLayers);
-      pointsAndLineLayers.push("points-symbol");
-      allLayers = pointsAndLineLayers;
-      allLayers.push("polygons");
+      //lineLayers = lineLayers.concat(state.userProfile.cliclableLineLayers);
+      //pointsAndLineLayers = pointsAndLineLayers.concat(lineLayers);
+      //pointsAndLineLayers.push("points-symbol");
+      //allLayers = pointsAndLineLayers;
+      //allLayers.push("polygons");
+      state.clickableLayers = state.userProfile.clickableLineLayers;
       document.getElementById("Login-status-message").innerHTML = `Hi ${
         state.userProfile.userName
       }`;
@@ -244,7 +249,7 @@ const attachMapListeners = () => {
 
   map.on("click", e => {
     const features = map.queryRenderedFeatures(e.point, {
-      layers: pointsAndLineLayers
+      layers: state.clickableLayers
     });
     if (!features.length) {
       return;
@@ -345,6 +350,7 @@ map.addControl(
 );
 
 map.on("load", e => {
+  /*
   map.on("mouseenter", "points-symbol", e => {
     map.getCanvas().style.cursor = "default";
   });
@@ -358,13 +364,19 @@ map.on("load", e => {
     map.on("mouseleave", layer, () => {
       map.getCanvas().style.cursor = "";
     });
+  }); */
+
+  state.cliclableLayers.map(layer => {
+    map.on("mouseenter", layer, e => {
+      map.getCanvas().style.cursor = "default";
+    });
+    map.on("mouseleave", layer, () => {
+      map.getCanvas().style.cursor = "";
+    });
   });
+
   console.log("mapresources loaded");
 });
-
-let lineLayers = []; //global
-let pointsAndLineLayers = []; // global
-let allLayers = []; // global
 
 // ------------- functions ---
 
@@ -716,7 +728,7 @@ const removeSelectableLayers = layerList => {
     el.parentNode.removeChild(el);
   }
   // remove from layers list
-  pointsAndLineLayers = pointsAndLineLayers.filter(layer => {
+  state.clickableLayers = state.clickableLayers.filter(layer => {
     return layer != "veglayer"; // note this is currently HARD CODED
   });
 };
