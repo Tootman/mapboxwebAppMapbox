@@ -26,10 +26,6 @@ state.sitesQueryResult = {};
 state.fbDatabase = {};
 state.userProfile = {};
 state.projectConfig = {};
-state.clickableLayers = [];
-
-//let allLayers = [];
-//allLayers = pointsAndLineLayers.push("polygon"); // global
 
 const loadSiteNamesDatasetLayer = datasetId => {
   const url = `https://api.mapbox.com/datasets/v1/dansimmons/${datasetId}/features?access_token=${
@@ -45,29 +41,13 @@ const loadSiteNamesDatasetLayer = datasetId => {
         return siteName;
       });
       autocomplete(document.getElementById("myInput"), siteNames);
-
-      /*
-          map.addLayer({
-            'source': {
-              'type': 'geojson',
-              'data': data
-            },
-            'id': 'gjLayer',
-            'type': 'fill',
-            'layout': {},
-            'paint': {
-              'fill-color': '#088',
-              'fill-opacity': 1
-            }
-          })
-  */
     });
 };
 
 const armIsStyleLoaded = () => {
   if (map.isStyleLoaded()) {
     // map.off("data", armIsStyleLoaded);
-    console.log("finally loaded");
+    //console.log("finally loaded");
     document.getElementById("loader-spinner-container").style.display = "none";
     //const mapID = state.settings.currentMapId;
     // note that below takes settings from UserProfile NOT from local settings
@@ -75,6 +55,7 @@ const armIsStyleLoaded = () => {
     //map.setCenter(state.userProfile.center);
     //map.setZoom(state.userProfile.zoom);
     //map.setZoom(11);
+    console.log("Style now loaded");
   } else {
     document.getElementById("loader-spinner-container").style.display =
       "inline";
@@ -117,16 +98,11 @@ const addSelectableMapboxLayersToNav = userProfileOb => {
     document
       .querySelector("#vegetation-layer-chkbox")
       .addEventListener("change", e => {
-        console.log("clicked!:", e.target.checked);
+        //console.log("clicked!:", e.target.checked);
         if (e.target.checked) {
-          state.clickableLayers.push("veglayer");
           map.setLayoutProperty("veglayer", "visibility", "visible");
         } else {
           map.setLayoutProperty("veglayer", "visibility", "none");
-          state.clickableLayers = state.clickableLayers.filter(layer => {
-            return layer != "veglayer";
-          });
-          //console.log(allLayers);
         }
       });
   }
@@ -170,13 +146,6 @@ const initApp = () => {
     // logged in Func
     getUserProfileFromFirebase(myUid).then(snapshot => {
       state.userProfile = snapshot.val();
-      // from rfactorerd
-      //lineLayers = lineLayers.concat(state.userProfile.cliclableLineLayers);
-      //pointsAndLineLayers = pointsAndLineLayers.concat(lineLayers);
-      //pointsAndLineLayers.push("points-symbol");
-      //allLayers = pointsAndLineLayers;
-      //allLayers.push("polygons");
-      state.clickableLayers = state.userProfile.clickableLineLayers;
       document.getElementById("Login-status-message").innerHTML = `Hi ${
         state.userProfile.userName
       }`;
@@ -212,10 +181,7 @@ const initApp = () => {
     document.getElementById("login-form").style.display = "block";
     document.querySelector("canvas").style.display = "none";
     document.getElementById("loader-spinner-container").style.display = "none";
-    //document.getElementById("mapsplash").style.display = "block";
     console.log("logged out - callback");
-    //document.getElementById("login-nav-link").click(); // hacky - should be cleaner using js
-    //$("#modal-login-form").modal("show");
     removeSelectableLayers();
   };
 
@@ -247,9 +213,11 @@ const attachMapListeners = () => {
       }
     });
 
+  console.log("mapOnClick listener attached");
   map.on("click", e => {
     const features = map.queryRenderedFeatures(e.point, {
-      layers: state.clickableLayers
+      //layers: state.userProfile.clickableLayers
+      layers: state.userProfile.clickableLayers
     });
     if (!features.length) {
       return;
@@ -310,12 +278,8 @@ const attachPropsetPhotoIfExists = propset => {
   }
   return el;
 };
-
 const map = new mapboxgl.Map({
   container: "map",
-  //style: (state.settings.maps[state.settings.currentMapId].url), // contains all layers with data - Richmond
-  //style: 'mapbox://styles/dansimmons/cjrrodbqq01us2slmro016y8b', //hounslow
-  //center: state.userProfile.center,
   center: {
     lat: 51.443858500160644,
     lng: -0.3215425160765335
@@ -350,23 +314,7 @@ map.addControl(
 );
 
 map.on("load", e => {
-  /*
-  map.on("mouseenter", "points-symbol", e => {
-    map.getCanvas().style.cursor = "default";
-  });
-  map.on("mouseleave", "points-symbol", () => {
-    map.getCanvas().style.cursor = "";
-  });
-  lineLayers.map(layer => {
-    map.on("mouseenter", layer, e => {
-      map.getCanvas().style.cursor = "default";
-    });
-    map.on("mouseleave", layer, () => {
-      map.getCanvas().style.cursor = "";
-    });
-  }); */
-
-  state.cliclableLayers.map(layer => {
+  state.userProfile.clickableLayers.map(layer => {
     map.on("mouseenter", layer, e => {
       map.getCanvas().style.cursor = "default";
     });
@@ -375,7 +323,7 @@ map.on("load", e => {
     });
   });
 
-  console.log("mapresources loaded");
+  //console.log("mapresources loaded");
 });
 
 // ------------- functions ---
@@ -439,7 +387,6 @@ const showAboutBox = () => {
   el.innerHTML = state.about.content;
   document.getElementById("map-name").innerHTML =
     state.userProfile.mapboxMapName;
-  //console.log("aboutBox!");
 };
 
 const reseToBoundsOfProject = () => {
@@ -543,14 +490,6 @@ const userLogin = () => {
     .btnLogin()
     .then(data => {
       console.log("login () any final stuff:", data);
-
-      // // const token = data.mapboxAccessToken
-      //getUserProfileFromFirebase(data.uid).then(snapshot => {
-      //state.userProfile = snapshot.val();
-      // //const msg = document.getElementById("Login-status-message");
-
-      //selectNewMapWithAccess(state.userProfile);
-      //});
     })
     .catch(error => {
       console.log("error in login!");
@@ -559,25 +498,14 @@ const userLogin = () => {
 
 const userLogout = data => {
   User().btnLogout();
-  /*
-    .then(data => {
-      console.log("loggout:");
-      document.querySelector("canvas").style.display = "none";
-    })
-    .catch(error => {
-      console.log("error in logout!");
-    });
-
-  */
 };
 
 const retrieveProjectConfig = userProfile => {
-  console.log("retrieve project info from Fb:", userProfile);
+  console.log("retrieved project info from Fb:", userProfile);
   if (userProfile.projectId == null) {
     console.log("no projectConfig (projectId) found");
     return;
   }
-
   return firebase
     .database()
     .ref(`App/Projects/${userProfile.projectId}/`)
@@ -609,7 +537,7 @@ const satImageSetVisible = visible => {
 function autocomplete(inp, arr) {
   /*the autocomplete function takes two arguments,
     the text field element and an array of possible autocompleted values:*/
-  console.log("autocomplete!!!", inp, arr);
+  //console.log("autocomplete!!!", inp, arr);
   var currentFocus;
   /*execute a function when someone writes in the text field:*/
   inp.addEventListener("input", function(e) {
@@ -719,16 +647,9 @@ function autocomplete(inp, arr) {
 }
 
 const removeSelectableLayers = layerList => {
-  console.log("removing selectable layers");
-  // event listener removed when dom element is destroyed - hopefully ?
-
   // remove navmenu chkbox etc if it exists
   const el = document.querySelector("#vegetation-layer-chkbox-container");
   if (el) {
     el.parentNode.removeChild(el);
   }
-  // remove from layers list
-  state.clickableLayers = state.clickableLayers.filter(layer => {
-    return layer != "veglayer"; // note this is currently HARD CODED
-  });
 };
