@@ -75,18 +75,20 @@ const selectNewMap = mapID => {
 };
 
 const addSelectableMapboxLayersToNav = userProfileOb => {
+  const optionMenu = document.getElementById("options-dropdown");
+
   const htmlFromStr = domstring => {
     // quick hack to inject some html - come back to ...
     const html = new DOMParser().parseFromString(domstring, "text/html");
     return html.body.firstChild;
   };
-  console.log("profile:", userProfileOb);
-  if (userProfileOb.selectableMapboxLayers) {
-    userProfileOb.selectableMapboxLayers.map(item => {
-      // add checkbox etc to dropdown menu
-      const optionMenu = document.getElementById("options-dropdown");
+  //console.log("profile:", userProfileOb);
 
-      /*
+  //if (userProfileOb.selectableMapboxLayers) {
+  //  userProfileOb.selectableMapboxLayers.map(item => {
+  // add checkbox etc to dropdown menu
+
+  /*
       optionMenu.append(
         htmlFromStr(
           `<div class="form-check" id="vegetation-layer-chkbox-container">
@@ -97,33 +99,32 @@ const addSelectableMapboxLayersToNav = userProfileOb => {
       );
       */
 
-      state.userProfile.optionalLayers.map((item, index) => {
-        optionMenu.append(
-          htmlFromStr(
-            `<div class="form-check" id="option${index}-chkbox-container">
+  state.userProfile.optionalLayers.map((item, index) => {
+    optionMenu.append(
+      htmlFromStr(
+        `<div class="form-check" id="option${index}-chkbox-container">
                 <input type="checkbox" class="form-check-input" name="${
                   item.layerName
                 }" id="option${index}-chkbox"/>
                 <label class="form-check-label" for="option${index}-chkbox">${
-              item.label
-            } </label>
+          item.label
+        } </label>
               </div>`
-          )
-        );
-        document
-          .querySelector(`#option${index}-chkbox`)
-          .addEventListener("change", e => {
-            //console.log("clicked!:", e.target.checked);
-            if (e.target.checked) {
-              map.setLayoutProperty(e.target.name, "visibility", "visible");
-            } else {
-              map.setLayoutProperty(e.target.name, "visibility", "none");
-            }
-          });
+      )
+    );
+    document
+      .querySelector(`#option${index}-chkbox`)
+      .addEventListener("change", e => {
+        //console.log("clicked!:", e.target.checked);
+        if (e.target.checked) {
+          map.setLayoutProperty(e.target.name, "visibility", "visible");
+        } else {
+          map.setLayoutProperty(e.target.name, "visibility", "none");
+        }
       });
-    });
+  });
 
-    /*
+  /*
     document
       .querySelector("#vegetation-layer-chkbox")
       .addEventListener("change", e => {
@@ -135,7 +136,6 @@ const addSelectableMapboxLayersToNav = userProfileOb => {
         }
       });
       */
-  }
 };
 
 const selectNewMapWithAccess = userProfile => {
