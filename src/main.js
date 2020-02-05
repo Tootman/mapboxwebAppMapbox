@@ -65,7 +65,7 @@ const armIsStyleLoaded = () => {
 
 const selectNewMap = mapID => {
   map.setStyle(state.userProfile.mapboxStyleId);
-  document.querySelector("#satellite-layer-chkbox").checked = false;
+  //document.querySelector("#satellite-layer-chkbox").checked = false;
   //state.settings.currentMapId = mapID; // fudge - come back to
   map.on("data", armIsStyleLoaded);
 
@@ -85,6 +85,8 @@ const addSelectableMapboxLayersToNav = userProfileOb => {
     userProfileOb.selectableMapboxLayers.map(item => {
       // add checkbox etc to dropdown menu
       const optionMenu = document.getElementById("options-dropdown");
+
+      /*
       optionMenu.append(
         htmlFromStr(
           `<div class="form-check" id="vegetation-layer-chkbox-container">
@@ -93,8 +95,35 @@ const addSelectableMapboxLayersToNav = userProfileOb => {
           </div>`
         )
       );
+      */
+
+      state.userProfile.optionalLayers.map((item, index) => {
+        optionMenu.append(
+          htmlFromStr(
+            `<div class="form-check" id="option${index}-chkbox-container">
+                <input type="checkbox" class="form-check-input" name="${
+                  item.layerName
+                }" id="option${index}-chkbox"/>
+                <label class="form-check-label" for="option${index}-chkbox">${
+              item.label
+            } </label>
+              </div>`
+          )
+        );
+        document
+          .querySelector(`#option${index}-chkbox`)
+          .addEventListener("change", e => {
+            //console.log("clicked!:", e.target.checked);
+            if (e.target.checked) {
+              map.setLayoutProperty(e.target.name, "visibility", "visible");
+            } else {
+              map.setLayoutProperty(e.target.name, "visibility", "none");
+            }
+          });
+      });
     });
 
+    /*
     document
       .querySelector("#vegetation-layer-chkbox")
       .addEventListener("change", e => {
@@ -105,6 +134,7 @@ const addSelectableMapboxLayersToNav = userProfileOb => {
           map.setLayoutProperty("veglayer", "visibility", "none");
         }
       });
+      */
   }
 };
 
@@ -114,7 +144,7 @@ const selectNewMapWithAccess = userProfile => {
   map.setCenter(state.userProfile.center);
   map.setZoom(state.userProfile.zoom);
 
-  document.querySelector("#satellite-layer-chkbox").checked = false;
+  //document.querySelector("#satellite-layer-chkbox").checked = false;
   //state.settings.currentMapId = mapID; // fudge - come back to
   map.on("data", armIsStyleLoaded);
   //document.getElementById("navbarToggler").classList.remove("show");
@@ -199,7 +229,8 @@ const attachMapListeners = () => {
     document.getElementById("myInput").value = "";
   });
 
-  document
+  document;
+  /*
     .querySelector("#satellite-layer-chkbox")
     .addEventListener("change", e => {
       if (e.target.checked) {
@@ -212,7 +243,7 @@ const attachMapListeners = () => {
         console.log("tickbox notChecked");
       }
     });
-
+*/
   console.log("mapOnClick listener attached");
   map.on("click", e => {
     const features = map.queryRenderedFeatures(e.point, {
@@ -523,6 +554,7 @@ const getUserProfileFromFirebase = userId => {
     .once("value");
 };
 
+/*
 const satImageSetVisible = visible => {
   if (visible) {
     map.setLayoutProperty("mapbox-satellite", "visibility", "visible");
@@ -531,6 +563,7 @@ const satImageSetVisible = visible => {
     map.setLayoutProperty("mapbox-satellite", "visibility", "none");
   }
 };
+*/
 
 // --- search auto complete ---
 
