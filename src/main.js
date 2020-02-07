@@ -12,8 +12,8 @@ import mapboxgl from "mapbox-gl";
 const state = {};
 state.settings = {};
 state.about = {};
-state.about.version = "0.9.041";
-state.about.releaseDate = "3rd February 2020";
+state.about.version = "0.9.042";
+state.about.releaseDate = "5th February 2020";
 state.about.content = `<h4> ORCL Client map</h4><p> Occam's Razor Consulting Ltd, parks and open spaces Asset map</p>
 <p> Displaying: <div id="map-name"></div></p>
 <h4> App details </h4>
