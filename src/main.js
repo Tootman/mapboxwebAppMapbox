@@ -265,7 +265,7 @@ const attachMapListeners = () => {
       fetchLastFirebaseRelatedData(obId);
     }
     const p = feature.properties;
-    const popupTitle = p.ASSET || p.Asset || p.asset;
+    const popupTitle = p.ASSET || p.Asset || p.asset || p.type;
     //const popupFeatureContent = propSet(feature)
     //document.getElementById("popup-feature-template").innerHTML = propSet(feature)
     const modalContent = `${propSet(
@@ -285,16 +285,17 @@ const attachMapListeners = () => {
     //attachPropsetPhotoIfExists(feature.properties);
     const photoParentEl = document.querySelector(".modal-feature-photo");
     photoParentEl.src = "";
-    if ((p.Photo || p.PHOTO) && state.userProfile.fbStoragePhotosPath) {
+    const photoAttr = p.Photo || p.PHOTO || p.photo;
+    if (photoAttr && state.userProfile.fbStoragePhotosPath) {
       //const storage = firebase.storage();
       //const pathRef = storage.ref(state.userProfile.fbStoragePhotosPath);
       const pathRef = state.userProfile.fbStoragePhotosPath;
       // .modal-feature-photo
-      const photoId = p.Photo || p.PHOTO;
+
       fetchPhotoFromFBStorage({
         parentEl: photoParentEl,
         path: state.userProfile.fbStoragePhotosPath,
-        photoId: photoId
+        photoId: photoAttr
       });
     } //else {
     //  photoParentEl.src = "";
