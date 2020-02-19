@@ -7,6 +7,9 @@ import $ from "jquery";
 import "bootstrap";
 import "./main.scss";
 import bbox from "@turf/bbox";
+import area from "@turf/area";
+import MapboxDraw from "@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.js";
+//import "@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css";
 import mapboxgl from "mapbox-gl";
 
 const state = {};
@@ -344,6 +347,34 @@ map.addControl(
     unit: "metric"
   })
 );
+
+var draw = new MapboxDraw({
+  displayControlsDefault: false,
+  controls: {
+    polygon: true,
+    trash: true
+  }
+});
+
+const updateArea = e => {
+  var data = draw.getAll();
+  // var answer = document.getElementById("calculated-area");
+  if (data.features.length > 0) {
+    var myArea = area(data);
+    // restrict to area to 2 decimal points
+    var rounded_area = Math.round(myArea * 100) / 100;
+    alert("area: " + rounded_area);
+  } else {
+    if (e.type !== "draw.delete")
+      alert("Use the draw tools to draw a polygon!");
+  }
+};
+
+map.addControl(draw);
+
+map.on("draw.create", updateArea);
+map.on("draw.delete", updateArea);
+map.on("draw.update", updateArea);
 
 map.on("load", e => {
   state.userProfile.clickableLayers.map(layer => {
