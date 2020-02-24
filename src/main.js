@@ -236,7 +236,6 @@ const addToolsToNav = () => {
           <label class="form-check-label" for="polygon-measure-tool-chkbox">Measure Area
   </label>
         </div>`;
-
   document
     .getElementById("polygon-measure-tool-chkbox")
     .addEventListener("change", e => {
@@ -456,8 +455,8 @@ var draw = new MapboxDraw({
         ["!=", "mode", "static"]
       ],
       paint: {
-        "circle-radius": 3,
-        "circle-color": "#000088"
+        "circle-radius": 10,
+        "circle-color": "#FcFc11"
       }
     },
 
@@ -512,24 +511,17 @@ const updateArea = e => {
     const myArea = area(data);
 
     statsMsgContainerEl.style.display = "block";
-
-    // restrict to area to 2 decimal points
     const rounded_area = Math.round(myArea);
-    //alert("area: " + rounded_area);
-    statsMsgContainerEl.innerHTML = `Total selected Area: ${rounded_area} square meters`;
+    statsMsgContainerEl.innerHTML = `Total area of drawn shapes: ${rounded_area} square meters`;
   } else {
-    //  if (e.type !== "draw.delete")
-    //    statsMsgContainerEl.innerHTML = `Total Area: ${rounded_area} square meters`;
     statsMsgContainerEl.style.display = "none";
   }
 };
 
 map.addControl(draw);
-
 map.on("draw.create", updateArea);
 map.on("draw.delete", updateArea);
 map.on("draw.update", updateArea);
-
 map.on("load", e => {
   state.userProfile.clickableLayers.map(layer => {
     map.on("mouseenter", layer, e => {
