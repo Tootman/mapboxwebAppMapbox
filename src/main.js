@@ -18,8 +18,8 @@ import mapboxgl from "mapbox-gl";
 const state = {};
 state.settings = {};
 state.about = {};
-state.about.version = "0.9.043";
-state.about.releaseDate = "10th February 2020";
+state.about.version = "0.9.044";
+state.about.releaseDate = "24th February 2020";
 state.about.content = `<h4> ORCL Client map</h4><p> Occam's Razor Consulting Ltd, parks and open spaces Asset map</p>
 <p> Displaying: <div id="map-name"></div></p>
 <h4> App details </h4>
@@ -380,9 +380,9 @@ var draw = new MapboxDraw({
       type: "fill",
       filter: ["all", ["==", "$type", "Polygon"], ["!=", "mode", "static"]],
       paint: {
-        "fill-color": "#00FF00",
-        "fill-outline-color": "#00FF00",
-        "fill-opacity": 0.1
+        "fill-color": "#FF8888",
+        "fill-outline-color": "#FF2222",
+        "fill-opacity": 0.8
       }
     },
     // polygon outline stroke
@@ -396,9 +396,9 @@ var draw = new MapboxDraw({
         "line-join": "round"
       },
       paint: {
-        "line-color": "#00FF00",
+        "line-color": "#990000",
         "line-dasharray": [0.2, 2],
-        "line-width": 10
+        "line-width": 2
       }
     },
     // vertex point halos
@@ -412,8 +412,8 @@ var draw = new MapboxDraw({
         ["!=", "mode", "static"]
       ],
       paint: {
-        "circle-radius": 10,
-        "circle-color": "#00FF00"
+        "circle-radius": 6,
+        "circle-color": "#0000FF"
       }
     },
     // vertex points
@@ -428,7 +428,7 @@ var draw = new MapboxDraw({
       ],
       paint: {
         "circle-radius": 3,
-        "circle-color": "#00FF00"
+        "circle-color": "#000088"
       }
     },
 
@@ -453,9 +453,9 @@ var draw = new MapboxDraw({
       type: "fill",
       filter: ["all", ["==", "$type", "Polygon"], ["==", "mode", "static"]],
       paint: {
-        "fill-color": "#00FF00",
-        "fill-outline-color": "#00FF00",
-        "fill-opacity": 0.5
+        "fill-color": "#FF8800",
+        "fill-outline-color": "#FF8800",
+        "fill-opacity": 0.8
       }
     },
     // polygon outline
@@ -468,8 +468,8 @@ var draw = new MapboxDraw({
         "line-join": "round"
       },
       paint: {
-        "line-color": "#00BB00",
-        "line-width": 10
+        "line-color": "#FFBB00",
+        "line-width": 1
       }
     }
   ]
