@@ -254,3 +254,17 @@ nav.navbar.navbar-expand-lg.navbar-dark.bg-dark {
   width: 1.6rem;
   height: 1.6rem;
 }
+
+div#stats-msg-container {
+  /* z-index: 200000; */
+  background-color: white;
+  float: right;
+  /* height: 200px; */
+  /* width: 200px; */
+  bottom: 0px;
+  position: absolute;
+  padding: 10px;
+  left: 50%;
+  background-color: #444444;
+  color: white;
+}

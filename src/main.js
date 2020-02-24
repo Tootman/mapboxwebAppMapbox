@@ -476,16 +476,22 @@ var draw = new MapboxDraw({
 });
 
 const updateArea = e => {
-  var data = draw.getAll();
+  const data = draw.getAll();
+  const statsMsgContainerEl = document.getElementById("stats-msg-container");
   // var answer = document.getElementById("calculated-area");
   if (data.features.length > 0) {
-    var myArea = area(data);
+    const myArea = area(data);
+
+    statsMsgContainerEl.style.display = "block";
+
     // restrict to area to 2 decimal points
-    var rounded_area = Math.round(myArea * 100) / 100;
-    alert("area: " + rounded_area);
+    const rounded_area = Math.round(myArea);
+    //alert("area: " + rounded_area);
+    statsMsgContainerEl.innerHTML = `Total selected Area: ${rounded_area} square meters`;
   } else {
-    if (e.type !== "draw.delete")
-      alert("Use the draw tools to draw a polygon!");
+    //  if (e.type !== "draw.delete")
+    //    statsMsgContainerEl.innerHTML = `Total Area: ${rounded_area} square meters`;
+    statsMsgContainerEl.style.display = "none";
   }
 };
 
