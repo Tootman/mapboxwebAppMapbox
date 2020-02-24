@@ -222,6 +222,35 @@ const initApp = () => {
   };
 
   myUser.OnAuthChangedListener(loggedIn, loggedOut);
+  addToolsToNav();
+};
+
+const addToolsToNav = () => {
+  const polygonMeasureToolEl = document.querySelectorAll(
+    ".mapbox-gl-draw_ctrl-draw-btn"
+  );
+  const toolsDropdownEl = document.getElementById("tools-dropdown");
+  toolsDropdownEl.innerHTML = `<div class="form-check" id="polygon-measure-chkbox-container">
+          <input type="checkbox" class="form-check-input"
+          }" id="polygon-measure-tool-chkbox"/>
+          <label class="form-check-label" for="polygon-measure-tool-chkbox">Measure Area
+  </label>
+        </div>`;
+
+  document
+    .getElementById("polygon-measure-tool-chkbox")
+    .addEventListener("change", e => {
+      polygonMeasureToolEl.forEach(el => {
+        if (e.target.checked) {
+          el.style.display = "block";
+        } else {
+          el.style.display = "none";
+        }
+      });
+    });
+  polygonMeasureToolEl.forEach(el => {
+    el.style.display = "none"; // init set to hidden
+  });
 };
 
 const attachMapListeners = () => {
