@@ -6,6 +6,9 @@ import { User } from "./User.js";
 import $ from "jquery";
 import "bootstrap";
 import "./main.scss";
+import "./mapbox-gl.css";
+import "./mapbox-gl-draw.css";
+
 import bbox from "@turf/bbox";
 import area from "@turf/area";
 import MapboxDraw from "@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.js";
