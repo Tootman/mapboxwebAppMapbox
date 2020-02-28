@@ -226,9 +226,9 @@ const initApp = () => {
 };
 
 const addToolsToNav = () => {
-  const polygonMeasureToolEl = document.querySelectorAll(
-    ".mapbox-gl-draw_ctrl-draw-btn"
-  );
+  //const polygonMeasureToolEl = document.querySelectorAll(
+  //  ".mapbox-gl-draw_ctrl-draw-btn"
+  //);
   const toolsDropdownEl = document.getElementById("tools-dropdown");
   toolsDropdownEl.innerHTML = `<div class="form-check" id="polygon-measure-chkbox-container">
           <input type="checkbox" class="form-check-input"
@@ -239,6 +239,7 @@ const addToolsToNav = () => {
   document
     .getElementById("polygon-measure-tool-chkbox")
     .addEventListener("change", e => {
+      /*
       polygonMeasureToolEl.forEach(el => {
         if (e.target.checked) {
           el.style.display = "block";
@@ -246,10 +247,19 @@ const addToolsToNav = () => {
           el.style.display = "none";
         }
       });
+      */
+      if (e.target.checked) {
+        map.addControl(draw);
+      } else {
+        map.removeControl(draw);
+      }
     });
+
+  /*
   polygonMeasureToolEl.forEach(el => {
     el.style.display = "none"; // init set to hidden
   });
+  */
 };
 
 const attachMapListeners = () => {
@@ -380,12 +390,37 @@ map.addControl(
 );
 
 var draw = new MapboxDraw({
-  displayControlsDefault: false,
-  controls: {
-    polygon: true,
-    trash: true
-  },
+  displayControlsDefault: true,
+  touchEnabled: true,
   styles: [
+    {
+      id: "highlight-active-points",
+      type: "circle",
+      filter: [
+        "all",
+        ["==", "$type", "Point"],
+        ["==", "meta", "feature"],
+        ["==", "active", "true"]
+      ],
+      paint: {
+        "circle-radius": 7,
+        "circle-color": "#000000"
+      }
+    },
+    {
+      id: "points-are-blue",
+      type: "circle",
+      filter: [
+        "all",
+        ["==", "$type", "Point"],
+        ["==", "meta", "feature"],
+        ["==", "active", "false"]
+      ],
+      paint: {
+        "circle-radius": 5,
+        "circle-color": "#000088"
+      }
+    },
     // ACTIVE (being drawn)
     // line stroke
     {
@@ -517,8 +552,7 @@ const updateArea = e => {
     statsMsgContainerEl.style.display = "none";
   }
 };
-
-map.addControl(draw);
+//map.addControl(draw);
 map.on("draw.create", updateArea);
 map.on("draw.delete", updateArea);
 map.on("draw.update", updateArea);
