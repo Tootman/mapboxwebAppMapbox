@@ -248,18 +248,27 @@ const addToolsToNav = () => {
         }
       });
       */
+      const statsMsgContainerEl = document.getElementById(
+        "stats-msg-container"
+      );
       if (e.target.checked) {
         map.addControl(draw);
+        map.on("draw.create", updateArea);
+        map.on("draw.delete", updateArea);
+        map.on("draw.update", updateArea);
+        statsMsgContainerEl.style.display = "block";
+        statsMsgContainerEl.innerHTML = `Use the Rectangular tool button to draw a polygon<br>
+          Close the polygon with Right-Click <br>
+          Delete the polygon using the WasteBin tool button'<br>
+          Note that clicking on a feature is disabled while the Area tool is enabled`;
       } else {
         map.removeControl(draw);
+        map.off("draw.create", updateArea);
+        map.off("draw.delete", updateArea);
+        map.off("draw.update", updateArea);
+        statsMsgContainerEl.style.display = "none";
       }
     });
-
-  /*
-  polygonMeasureToolEl.forEach(el => {
-    el.style.display = "none"; // init set to hidden
-  });
-  */
 };
 
 const attachMapListeners = () => {
@@ -545,17 +554,14 @@ const updateArea = e => {
   if (data.features.length > 0) {
     const myArea = area(data);
 
-    statsMsgContainerEl.style.display = "block";
+    //statsMsgContainerEl.style.display = "block";
     const rounded_area = Math.round(myArea);
     statsMsgContainerEl.innerHTML = `Total area of drawn shapes: ${rounded_area} square meters`;
   } else {
-    statsMsgContainerEl.style.display = "none";
+    statsMsgContainerEl.innerHTML = `(no polygons drawn)`;
   }
 };
-//map.addControl(draw);
-map.on("draw.create", updateArea);
-map.on("draw.delete", updateArea);
-map.on("draw.update", updateArea);
+
 map.on("load", e => {
   state.userProfile.clickableLayers.map(layer => {
     map.on("mouseenter", layer, e => {
