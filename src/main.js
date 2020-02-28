@@ -399,8 +399,12 @@ map.addControl(
 );
 
 var draw = new MapboxDraw({
-  displayControlsDefault: true,
   touchEnabled: true,
+  displayControlsDefault: false,
+  controls: {
+    polygon: true,
+    trash: true
+  },
   styles: [
     {
       id: "highlight-active-points",
