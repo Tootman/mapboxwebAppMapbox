@@ -675,7 +675,7 @@ const fetchLastFirebaseRelatedData = obId => {
           try {
             fetchPhotoFromFBStorage({
               parentEl: document.querySelector(".modal-related-image"),
-              path: "hounslow/300x400/",
+              path: state.userProfile.fbStoragePhotosPath,
               photoId: propObject.photo
             });
             document.querySelector(".modal-related-image").style =
