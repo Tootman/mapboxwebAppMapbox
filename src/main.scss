@@ -222,6 +222,13 @@ h4,
 .navbar-dark .navbar-nav .nav-link:hover {
   color: rgba(255, 255, 255, 1);
 }
+hr {
+  border-color: #d3d3d34d; // semitrasparent lightgrey
+}
+
+.navbar-nav {
+  font-size: large;
+}
 
 #about-modal-footer-help {
   margin-right: 3em;

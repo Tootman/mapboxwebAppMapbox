@@ -192,7 +192,6 @@ const initApp = () => {
       $("#modal-login-form").modal("hide");
       document.getElementById("loader-spinner-container").style.display =
         "none";
-
       document
         .querySelector(".mapboxgl-ctrl-zoom-in")
         .setAttribute("title", "Zoom In");
@@ -205,6 +204,10 @@ const initApp = () => {
       selectNewMapWithAccess(state.userProfile);
       addSelectableMapboxLayersToNav(state.userProfile);
       retrieveProjectConfig(state.userProfile);
+      document.getElementById("login-nav-link").innerHTML = "User";
+      document.getElementById("login-nav-link").title = `Hi ${
+        state.userProfile.userName
+      }`;
     });
   };
 
@@ -218,6 +221,9 @@ const initApp = () => {
     document.querySelector("canvas").style.display = "none";
     document.getElementById("loader-spinner-container").style.display = "none";
     console.log("logged out - callback");
+    document.getElementById("login-nav-link").innerHTML = "SignIn";
+    document.getElementById("login-nav-link").title =
+      "Sign In to your ORCL account";
     removeSelectableLayers();
   };
 
@@ -230,7 +236,7 @@ const addToolsToNav = () => {
   //  ".mapbox-gl-draw_ctrl-draw-btn"
   //);
   const toolsDropdownEl = document.getElementById("tools-dropdown");
-  toolsDropdownEl.innerHTML = `<div class="form-check" id="polygon-measure-chkbox-container">
+  toolsDropdownEl.innerHTML = `<div><div class="text-info">Demo Experiemental feature</div><hr></div><div class="form-check" id="polygon-measure-chkbox-container">
           <input type="checkbox" class="form-check-input"
           }" id="polygon-measure-tool-chkbox"/>
           <label class="form-check-label" for="polygon-measure-tool-chkbox">Measure Area

@@ -34,32 +34,28 @@
   		</button>
   		<div class="collapse navbar-collapse" id="navbarToggler">
   			<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-  				<li class="nav-item"> <a id="login-nav-link" href="#" class="nav-link" data-toggle="modal" data-target = "#modal-login-form">Login</a>
+  				<li class="nav-item"> <a id="login-nav-link" href="#" class="nav-link" data-toggle="modal" data-target = "#modal-login-form"></a>
   				</li>
   				<li class="nav-item dropdown" >
-  					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-  						Options
+  					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" title="Optional map layers" aria-haspopup="true" aria-expanded="false">
+  						Layers
   					</a>
   					<div class="dropdown-menu " id="options-dropdown" aria-labelledby="navbarDropdown">
   					</div>
                 </li>
-
                 <li class="nav-item dropdown" >
-  					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+  					<a class="nav-link dropdown-toggle" title="Tools and Utilities" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
   						Tools
   					</a>
-  					<div class="dropdown-menu " id="tools-dropdown" aria-labelledby="navbarDropdown">
-  						(No tools - sorry!)
+  					
+  					<div class="dropdown-menu" id="tools-dropdown" aria-labelledby="navbarDropdown">
+  						(No tools available- sorry!)
   					</div>
                 </li>
-<!--
-			<li class="nav-item">
-				<a id="about-nav-link" href="#" class="nav-link" data-toggle="modal" data-target = "#about-infobox">About</a>
-      </li>
-		-->
+
 
 		<li class="nav-item dropdown">
-	         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" title="About" aria-expanded="false">
 	           About
 	         </a>
 	         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -114,14 +110,15 @@
 	<div  class="modal-dialog modal-lg">
 		<div class="modal-content">
 			<div class="modal-header">
+				<h5 class="modal-title">User account</h5>
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
 			</div>
 			<!-- Modal body -->
 			<div class="modal-body">
 				<div>
-					<p id="Login-status-message"> Please log in </p>
+					<p id="Login-status-message">Please sign in</p>
 					<form id="login-form">
-						<input type="email" class="form-control" id="emailInput" placeholder="your ORCL user name" />
+						<input type="email" class="form-control" id="emailInput" placeholder="your ORCL user name eg myLondonBorough@client.orcl.co.uk" />
 						<br>
 						<input type="password" class="form-control" id="passwordInput" placeholder="your password" />
 						<br>
