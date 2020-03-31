@@ -144,6 +144,22 @@ const addSelectableMapboxLayersToNav = userProfileOb => {
       */
 };
 
+const myCopyLatLng = e => {
+  const myMarkerUrl = `https://www.google.com/maps/place/${
+    e.target.lngLat.lat
+  }+${e.target.lngLat.lng}`;
+  console.log("inside myCopyLatLng!", myMarkerUrl);
+  const inputEl = document.getElementById("myLatLngInput");
+  inputEl.value = myMarkerUrl;
+  inputEl.select();
+  document.execCommand("copy");
+};
+
+const copyLatLng = e => {
+  console.log("CopyLatLng!", e);
+  myCopyLatLng(e);
+};
+
 const selectNewMapWithAccess = userProfile => {
   mapboxgl.accessToken = userProfile.mapboxAccessToken;
   map.setStyle(userProfile.mapboxStyleId);
@@ -208,6 +224,12 @@ const initApp = () => {
       document.getElementById("login-nav-link").title = `Hi ${
         state.userProfile.userName
       }`;
+      document
+        .getElementById("mylatlng")
+        .addEventListener("click", function(e) {
+          console.log("getLatLng", e);
+          myCopyLatLng(e);
+        });
     });
   };
 
@@ -359,6 +381,7 @@ const attachMapListeners = () => {
     } //else {
     //  photoParentEl.src = "";
     //  }
+    document.getElementById("mylatlng").lngLat = e.lngLat;
   });
 };
 
