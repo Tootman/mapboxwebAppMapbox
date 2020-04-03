@@ -202,6 +202,7 @@ const initApp = () => {
         state.userProfile.userName
       }`;
       document.getElementById("login-btn").style.display = "none";
+      document.getElementById("sign-in-prompt").style.display = "none";
       document.getElementById("logout-btn").style.display = "block";
       document.getElementById("login-form").style.display = "none";
       document.querySelector("canvas").style.display = "block";
@@ -238,12 +239,14 @@ const initApp = () => {
     document.getElementById("Login-status-message").innerHTML =
       "Bye - you have now signed out";
     document.getElementById("login-btn").style.display = "block";
+    document.getElementById("sign-in-prompt").innerHTML = "Please sign in";
+    document.getElementById("sign-in-prompt").style.display = "block";
     document.getElementById("logout-btn").style.display = "none";
     document.getElementById("login-form").style.display = "block";
     document.querySelector("canvas").style.display = "none";
     document.getElementById("loader-spinner-container").style.display = "none";
     console.log("logged out - callback");
-    document.getElementById("login-nav-link").innerHTML = "SignIn";
+    document.getElementById("login-nav-link").innerHTML = "Sign In";
     document.getElementById("login-nav-link").title =
       "Sign In to your ORCL account";
     removeSelectableLayers();
