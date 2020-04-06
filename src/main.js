@@ -189,6 +189,15 @@ document.addEventListener("DOMContentLoaded", function(event) {
   });
 });
 
+document.getElementById("password-chkbox").addEventListener("click", () => {
+  const pwid = document.getElementById("passwordInput");
+  if (pwid.type === "password") {
+    pwid.type = "text";
+  } else {
+    pwid.type = "password";
+  }
+});
+
 const initApp = () => {
   console.log("initApp!");
   state.fbDatabase = initFirebase();
