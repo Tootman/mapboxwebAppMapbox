@@ -240,6 +240,10 @@ const initApp = () => {
           console.log("getLatLng", e);
           myCopyLatLng(e);
         });
+      if (state.userProfile.projectinformation != undefined) {
+        document.getElementById("project-information-content").innerHTML =
+          state.userProfile.projectinformation;
+      }
     });
   };
 
