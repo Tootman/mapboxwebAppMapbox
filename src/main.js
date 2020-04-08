@@ -11,7 +11,8 @@ import "./mapbox-gl-draw.css";
 
 import bbox from "@turf/bbox";
 import area from "@turf/area";
-import MapboxDraw from "@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.js";
+import pointsWithinPolygon from "@turf/points-within-polygon";
+// import MapboxDraw from "@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.js";
 //import "@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css";
 import mapboxgl from "mapbox-gl";
 
