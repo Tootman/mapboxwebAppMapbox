@@ -19,8 +19,8 @@ import mapboxgl from "mapbox-gl";
 const state = {};
 state.settings = {};
 state.about = {};
-state.about.version = "0.9.047";
-state.about.releaseDate = "8th April 2020";
+state.about.version = "0.9.048";
+state.about.releaseDate = "14th April 2020";
 state.about.content = `<h4> ORCL Client map</h4><p> Occam's Razor Consulting Ltd, parks and open spaces Asset map</p>
 <p> Displaying: <div id="map-name"></div></p>
 <h4> App details </h4>
@@ -369,7 +369,7 @@ const attachMapListeners = () => {
     const modalContent = `${propSet(
       feature.properties
     )}</p><div class="propsetPhoto"></div>`;
-    const popupContent = `<dt>${popupTitle}</dt><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#asset-infobox">
+    const popupContent = `<dt>${popupTitle}</dt><button type="button" id="open-asset-modal-window" class="btn btn-primary" data-toggle="modal" data-target="#asset-infobox">
         more...</button>`;
     //const popupContent = `<img id="related-image" src="example-photo.jpg"/>`
     document.querySelector(".modal-feature-attr").innerHTML = modalContent;
