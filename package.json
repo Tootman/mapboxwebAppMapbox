@@ -37,7 +37,7 @@
     "@turf/turf": "^5.1.6",
     "bootstrap": "^4.3.1",
     "firebase": "^5.8.6",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "mapbox-gl": "^1.1.0",
     "popper.js": "^1.15.0"
   }
