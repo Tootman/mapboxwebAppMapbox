@@ -2,18 +2,29 @@
 <html>
 
 <head>
-	
-<!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-NPK6H93');</script>
-<!-- End Google Tag Manager -->
-	
-     
+
+	<!-- Google Tag Manager -->
+	<script>
+		(function(w, d, s, l, i) {
+			w[l] = w[l] || [];
+			w[l].push({
+				'gtm.start': new Date().getTime(),
+				event: 'gtm.js'
+			});
+			var f = d.getElementsByTagName(s)[0],
+				j = d.createElement(s),
+				dl = l != 'dataLayer' ? '&l=' + l : '';
+			j.async = true;
+			j.src =
+				'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+			f.parentNode.insertBefore(j, f);
+		})(window, document, 'script', 'dataLayer', 'GTM-NPK6H93');
+	</script>
+	<!-- End Google Tag Manager -->
+
+
 	<!-- Global site tag (gtag.js) - Google Analytics -->
-	<!-- 
+	<!--
 	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-58970527-6"></script>
 	<script>
 		window.dataLayer = window.dataLayer || [];
@@ -26,277 +37,264 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 	<meta charset='utf-8' />
 	<title>ORCL client Map</title>
 	<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
-	
-   
+
+
+</head>
+
+<body>
+	<!-- Google Tag Manager (noscript) -->
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NPK6H93" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+	<!-- End Google Tag Manager (noscript) -->
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+		<a class="navbar-brand" href="#"><img src="orcl-logo.png" id="logo-brand-nav" title="ORCL logo" /> </a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarToggler">
+			<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+				<li class="nav-item"> <a id="login-nav-link" href="#" class="nav-link" data-toggle="modal" data-target="#modal-login-form"></a>
+				</li>
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" title="Optional map layers" aria-haspopup="true" aria-expanded="false">
+						Layers
+					</a>
+					<div class="dropdown-menu " id="options-dropdown" aria-labelledby="navbarDropdown">
+					</div>
+				</li>
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" title="Tools and Utilities" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						Tools
+					</a>
+
+					<div class="dropdown-menu" id="tools-dropdown" aria-labelledby="navbarDropdown">
+						(No tools available- sorry!)
+					</div>
+				</li>
+
+
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" title="About" aria-expanded="false">
+						About
+					</a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+						<a class="dropdown-item" data-toggle="modal" data-target="#about-infobox" href="#" aria-haspopup="true" aria-expanded="false" id="about-infobox-link">About the App</a>
+						<a class="dropdown-item" data-toggle="modal" data-target="#terms-infobox" href="#" aria-haspopup="true" aria-expanded="false">Terms of use</a>
+						<a class="dropdown-item" data-toggle="modal" data-target="#privacy-infobox" href="#" aria-haspopup="true" aria-expanded="false">Privacy & cookies policy</a>
+					</div>
+				</li>
 
 
 
-	<!-- <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.49.0/mapbox-gl.css' rel='stylesheet' /> -->
-	<!-- <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-draw/v1.0.9/mapbox-gl-draw.css"   type="text/css" />  -->
-	<!-- <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.49.0/mapbox-gl.js'></script> -->
-	<!-- <script src="https://cdn.jsdelivr.net/npm/@turf/turf@5/turf.min.js"></script> -->
-
-    <!-- <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.2.1/css/bootstrap.min.css'>
-    </link> -->
-    <!-- <script src="//code.jquery.com/jquery-1.12.4.min.js"></script>  -->
-    <!--   <script src=" https://code.jquery.com/jquery-3.4.1.slim.min.js"></script> -->
-    <!-- <link rel='stylesheet' href='main.css'> </link>  -->
-
-  </head>
-  <body>
-  	<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NPK6H93"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
-  	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  		<a class="navbar-brand" href="#"><img src="orcl-logo.png" id="logo-brand-nav" title="ORCL logo"/> </a>
-  		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
-  			<span class="navbar-toggler-icon"></span>
-  		</button>
-  		<div class="collapse navbar-collapse" id="navbarToggler">
-  			<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-  				<li class="nav-item"> <a id="login-nav-link" href="#" class="nav-link" data-toggle="modal" data-target = "#modal-login-form"></a>
-  				</li>
-  				<li class="nav-item dropdown" >
-  					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" title="Optional map layers" aria-haspopup="true" aria-expanded="false">
-  						Layers
-  					</a>
-  					<div class="dropdown-menu " id="options-dropdown" aria-labelledby="navbarDropdown">
-  					</div>
-                </li>
-                <li class="nav-item dropdown" >
-  					<a class="nav-link dropdown-toggle" title="Tools and Utilities" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-  						Tools
-  					</a>
-  					
-  					<div class="dropdown-menu" id="tools-dropdown" aria-labelledby="navbarDropdown">
-  						(No tools available- sorry!)
-  					</div>
-                </li>
-
-
-		<li class="nav-item dropdown">
-	         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" title="About" aria-expanded="false">
-	           About
-	         </a>
-	         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-
-						 <a class="dropdown-item" data-toggle="modal" data-target = "#about-infobox" href="#"  aria-haspopup="true" aria-expanded="false" id="about-infobox-link">About the App</a>
-						 <a class="dropdown-item" data-toggle="modal" data-target = "#terms-infobox" href="#"  aria-haspopup="true" aria-expanded="false">Terms of use</a>
-						 <a class="dropdown-item" data-toggle="modal" data-target = "#privacy-infobox" href="#"  aria-haspopup="true" aria-expanded="false">Privacy & cookies policy</a>
-	         </div>
-	</li>
-
-
-
-    </ul>
-
-    <form class="form-inline my-2 my-lg-0" autocomplete="off">
-    	<div class="autocomplete" style="width:300px;">
-    		<input id="myInput" type="text" name="myCountry" placeholder="Search site name">
-    	</div>
-    </form>
-  </div>
-	</nav>
-	<div id='map'>
-		<div id ="sign-in-prompt" >Please wait ...</div>
-	</div> <!-- map -->
-
-	<div class="loader-spinner-container"  id="loader-spinner-container">
-	  <div class="loading-map-text">Loading ...</div>
-  </div>
-  <div class="stats-msg-container"  id="stats-msg-container" style="display:none"></div>
-
-<!-- About info Modal -->
-<div class="modal fade" id="about-infobox">
-	<div class=" modal-dialog modal-lg">
-		<div class="modal-content">
-			<div class="modal-header">
-				<dt class="modal-title">About</dt>
-				<button type="button" class="close" data-dismiss="modal">&times;</button>
-			</div>
-			<!-- Modal body -->
-			<div class="modal-body">
-			<div class="modal-body" id="about-infobox-content">
-
-				<p>Sorry not yet available - please wait for App to finnish loading</p>
-			</div>
-			
-			<div  id="project-information-content">
-			</div>
-			<div class="modal-footer">
-			</div>
-		</div>
-	</div>
-</div> <!-- modal -->
-
-
-
-<!-- login Form  -->
-
-<div class="modal fade" id="modal-login-form">
-	<div  class="modal-dialog modal-lg">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title">User account</h5>
-				<button type="button" class="close" data-dismiss="modal">&times;</button>
-			</div>
-			<!-- Modal body -->
-			<div class="modal-body">
-				<div>
-					<p id="Login-status-message">Please sign in</p>
-					<form id="login-form">
-						<input type="email" class="form-control" id="emailInput" placeholder="myBorough@client.orcl.co.uk" />
-						<br>
-						<input type="password" class="form-control" id="passwordInput" placeholder="your password" />
-						<br>
-						<input type="checkbox" id="password-chkbox"/> Show Password
-					</form>
-					<br>
-					<button id="login-btn" class="btn btn-primary">Log in</button>
-					<button id="logout-btn" class="btn btn-primary">Log out </button>
-				</div>
-			</div>
-			<div class="modal-footer">
-			</div>
-		</div>
-	</div>
-</div> <!-- modal -->
-
-<!-- Asset info Modal -->
-<div class="modal fade" id="asset-infobox">
-	<div class=" modal-dialog">
-		<div class="modal-content">
-			<!-- Modal Header -->
-			<div class="modal-header">
-				<dt class="modal-title" id="asset-infobox-title">Modal Heading</dt>
-				<button type="button" class="close" data-dismiss="modal">&times;</button>
-			</div>
-			<!-- Modal body -->
-			<div class="modal-body">
-				<div class="modal-related-data"></div>
-				<img class="modal-related-image"></img>
-				<hr>
-				<h4>Original data </h4>
-				<div class="modal-feature-attr"></div>
-				<img class="modal-feature-photo"></img>
-			</div>
-			<div class="modal-footer">
-				<u><a class="dropdown-item text-info"  href="#"  aria-haspopup="true" aria-expanded="false" id="mylatlng">Copy link to clipboard</a></u>
-			    <input type="text" value="" size=5 disabled id="myLatLngInput">
-				<a  data-toggle="modal" data-target = "#help-infobox" id="about-modal-footer-help" href="#" aria-haspopup="true" aria-expanded="false">Help</a>
-				<button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
-			</div>
-		</div> <!-- modal content -->
-	</div> <!-- modal dialog -->
-</div> <!-- modal fade -->
-
-<div class="modal fade" id="terms-infobox">
-	<div class=" modal-dialog modal-lg">
-		<div class="modal-content">
-			<div class="modal-header">
-				<dt class="modal-title">Terms of Use</dt>
-				<button type="button" class="close" data-dismiss="modal">&times;</button>
-			</div>
-			<!-- Modal body -->
-			<div class="modal-body" id="terms-infobox-content">
-
-				<p>You may view  and print this online map, subject to the restrictions set out below and elsewhere in these Terms of Use.</p>
-				<p>By logging into your online map on this website, you are agreeing to be bound by these terms of use. </p>
-
-				<ul>
-					<li>All Asset condition survey data contained in this website is the copyright of ORCL.</li>
-	<li>This website contains material which is owned by or licensed to ORCL. This material includes, but is not limited to, map data, graphic design of map symbology,the design,
-		 layout, look of the online map and the  website. </li>
-	<li>The re-distribution, re-publication, or otherwise making available of the material on this website to third parties, or to any other website,  without the prior written consent of ORCL is prohibited.</li>
-	<li>Any attempt to decompile or reverse engineer the website computer code is not permitted.</li>
-	<li>You are not permitted to share your Login username and password with another organisation without the express permission from ORCL.</li>
-	<li>ORCL may terminate this licence at any time. We reserve the right to disable your user ID and password at any time without prior notice or explanation - thereby suspending your access to the online map data.</li>
 			</ul>
 
-				<h3>Disclaimer</h3>
-				<p>
-				This website is provided on an 'as is' basis. ORCL is not liable for errors in the computer code wthin this website.
-		ORCL does not guarantee that use of this website will be compatible with all hardware and software which may be used by visitors to the site.
-		 It is however designed to be used with commonly used modern browsers such as Chrome, Safari and Edge. </p>
-
-			<h3>Modifications to Terms of use</h3>
-				<p>ORCL may revise these terms of service for its website at any time without notice.
- </p>
-			</div>
-			<div class="modal-footer">
-					<button type="button" class="btn btn-success" data-dismiss="modal">Accept & Close</button>
-			</div>
+			<form class="form-inline my-2 my-lg-0" autocomplete="off">
+				<div class="autocomplete" style="width:300px;">
+					<input id="myInput" type="text" name="myCountry" placeholder="Search site name">
+				</div>
+			</form>
 		</div>
+	</nav>
+	<div id='map'>
+		<div id="sign-in-prompt">Please wait ...</div>
+	</div> <!-- map -->
+
+	<div class="loader-spinner-container" id="loader-spinner-container">
+		<div class="loading-map-text">Loading ...</div>
 	</div>
-</div> <!-- modal -->
+	<div class="stats-msg-container" id="stats-msg-container" style="display:none"></div>
 
-<div class="modal fade" id="privacy-infobox">
-	<div class=" modal-dialog modal-lg">
-		<div class="modal-content">
-			<div class="modal-header">
-				<dt class="modal-title">Privacy & cookies policy</dt>
-				<button type="button" class="close" data-dismiss="modal">&times;</button>
+	<!-- About info Modal -->
+	<div class="modal fade" id="about-infobox">
+		<div class=" modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<dt class="modal-title">About</dt>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<!-- Modal body -->
+				<div class="modal-body">
+					<div class="modal-body" id="about-infobox-content">
+
+						<p>Sorry not yet available - please wait for App to finnish loading</p>
+					</div>
+
+					<div id="project-information-content">
+					</div>
+					<div class="modal-footer">
+					</div>
+				</div>
 			</div>
-			<!-- Modal body -->
-			<div class="modal-body" id="privacy-infobox-content">
-
-<h3>Privacy</h3>
-<p>
-	This website uses the Google Firebase ‘Realtime database’ service,
-	to store GIS data and Asset survey condition data, and the Firebase ‘storage’ service
-	to store photos captured during mapping and during Asset condition surveying .
-	The Firebase server stores the date of the most recent login for each user.
-	For further information see <a href="https://www.firebase.com/terms/privacy-policy.html" >firebase.com/terms </a>
-		</p>
-
-		<h3>Cookie policy </h3>
-		<p>
-			The website uses cookies to store information about your browser,
-			 and your interactions with the website. Cookies, are small text files
-			 that are stored on your computer, and accessible only to the websites which create them.
-</p>
- <p>
-  This website uses 'Google Analytics' and 'Mapbox' cookies.
-	 The information we get from Google Analytics cookies helps us ensure this
-	  website meets your needs and to help us improve it. This information gathered
-		is compiled on an aggregate, anonymous basis. Further information about
-		Google Analytics privacy policy may be obtained from
- <a href="https://policies.google.com/privacy" target="_blank" title="google.com/privacy">google.com/privacy</a>
-			</p>
-			<p>
-				‘Mapbox’ cookies are used by the  Mapbox mapping services to
-				 track user interactions with the Mapbox API, and which does include
-				  collecting the User's IP address, and retaining it for a fixed amount of time.
-				For more information on Mapbox privacy policy please see:
-				<a href="https://www.mapbox.com/privacy/#[WLaCWauc]" target="_blank" title="mapbox">mapbox.com</a>
-			</p>
-
-			</div>
-			<div class="modal-footer">
-					<button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
-			</div>
-		</div>
+		</div> <!-- modal -->
 	</div>
-</div> <!-- modal -->
 
-<div class="modal fade" id="help-infobox">
-	<div class=" modal-dialog modal-lg">
-		<div class="modal-content">
-			<div class="modal-header">
-				<dt class="modal-title">Help</dt>
-				<button type="button" class="close" data-dismiss="modal">&times;</button>
+
+
+		<!-- login Form  -->
+
+		<div class="modal fade" id="modal-login-form">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">User account</h5>
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
+					<!-- Modal body -->
+					<div class="modal-body">
+						<div>
+							<p id="Login-status-message">Please sign in</p>
+							<form id="login-form">
+								<input type="email" class="form-control" id="emailInput" placeholder="myBorough@client.orcl.co.uk" />
+								<br>
+								<input type="password" class="form-control" id="passwordInput" placeholder="your password" />
+								<br>
+								<input type="checkbox" id="password-chkbox" /> Show Password
+							</form>
+							<br>
+							<button id="login-btn" class="btn btn-primary">Log in</button>
+							<button id="logout-btn" class="btn btn-primary">Log out </button>
+						</div>
+					</div>
+					<div class="modal-footer">
+					</div>
+				</div>
 			</div>
-			<!-- Modal body -->
-			<div class="modal-body" id="help-infobox-content">
-				
+		</div> <!-- modal -->
+
+		<!-- Asset info Modal -->
+		<div class="modal fade" id="asset-infobox">
+			<div class=" modal-dialog">
+				<div class="modal-content">
+					<!-- Modal Header -->
+					<div class="modal-header">
+						<dt class="modal-title" id="asset-infobox-title">Modal Heading</dt>
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
+					<!-- Modal body -->
+					<div class="modal-body">
+						<div class="modal-related-data"></div>
+						<img class="modal-related-image"></img>
+						<hr>
+						<h4>Original data </h4>
+						<div class="modal-feature-attr"></div>
+						<img class="modal-feature-photo"></img>
+					</div>
+					<div class="modal-footer">
+						<u><a class="dropdown-item text-info" href="#" aria-haspopup="true" aria-expanded="false" id="mylatlng">Copy link to clipboard</a></u>
+						<input type="text" value="" size=5 disabled id="myLatLngInput">
+						<a data-toggle="modal" data-target="#help-infobox" id="about-modal-footer-help" href="#" aria-haspopup="true" aria-expanded="false">Help</a>
+						<button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
+					</div>
+				</div> <!-- modal content -->
+			</div> <!-- modal dialog -->
+		</div> <!-- modal fade -->
+
+		<div class="modal fade" id="terms-infobox">
+			<div class=" modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<dt class="modal-title">Terms of Use</dt>
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
+					<!-- Modal body -->
+					<div class="modal-body" id="terms-infobox-content">
+
+						<p>You may view and print this online map, subject to the restrictions set out below and elsewhere in these Terms of Use.</p>
+						<p>By logging into your online map on this website, you are agreeing to be bound by these terms of use. </p>
+
+						<ul>
+							<li>All Asset condition survey data contained in this website is the copyright of ORCL.</li>
+							<li>This website contains material which is owned by or licensed to ORCL. This material includes, but is not limited to, map data, graphic design of map symbology,the design,
+								layout, look of the online map and the website. </li>
+							<li>The re-distribution, re-publication, or otherwise making available of the material on this website to third parties, or to any other website, without the prior written consent of ORCL is prohibited.</li>
+							<li>Any attempt to decompile or reverse engineer the website computer code is not permitted.</li>
+							<li>You are not permitted to share your Login username and password with another organisation without the express permission from ORCL.</li>
+							<li>ORCL may terminate this licence at any time. We reserve the right to disable your user ID and password at any time without prior notice or explanation - thereby suspending your access to the online map data.</li>
+						</ul>
+
+						<h3>Disclaimer</h3>
+						<p>
+							This website is provided on an 'as is' basis. ORCL is not liable for errors in the computer code wthin this website.
+							ORCL does not guarantee that use of this website will be compatible with all hardware and software which may be used by visitors to the site.
+							It is however designed to be used with commonly used modern browsers such as Chrome, Safari and Edge. </p>
+
+						<h3>Modifications to Terms of use</h3>
+						<p>ORCL may revise these terms of service for its website at any time without notice.
+						</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-success" data-dismiss="modal">Accept & Close</button>
+					</div>
+				</div>
 			</div>
-			<div class="modal-footer">
-					<button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
+		</div> <!-- modal -->
+
+		<div class="modal fade" id="privacy-infobox">
+			<div class=" modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<dt class="modal-title">Privacy & cookies policy</dt>
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
+					<!-- Modal body -->
+					<div class="modal-body" id="privacy-infobox-content">
+
+						<h3>Privacy</h3>
+						<p>
+							This website uses the Google Firebase ‘Realtime database’ service,
+							to store GIS data and Asset survey condition data, and the Firebase ‘storage’ service
+							to store photos captured during mapping and during Asset condition surveying .
+							The Firebase server stores the date of the most recent login for each user.
+							For further information see <a href="https://www.firebase.com/terms/privacy-policy.html">firebase.com/terms </a>
+						</p>
+
+						<h3>Cookie policy </h3>
+						<p>
+							The website uses cookies to store information about your browser,
+							and your interactions with the website. Cookies, are small text files
+							that are stored on your computer, and accessible only to the websites which create them.
+						</p>
+						<p>
+							This website uses 'Google Analytics' and 'Mapbox' cookies.
+							The information we get from Google Analytics cookies helps us ensure this
+							website meets your needs and to help us improve it. This information gathered
+							is compiled on an aggregate, anonymous basis. Further information about
+							Google Analytics privacy policy may be obtained from
+							<a href="https://policies.google.com/privacy" target="_blank" title="google.com/privacy">google.com/privacy</a>
+						</p>
+						<p>
+							‘Mapbox’ cookies are used by the Mapbox mapping services to
+							track user interactions with the Mapbox API, and which does include
+							collecting the User's IP address, and retaining it for a fixed amount of time.
+							For more information on Mapbox privacy policy please see:
+							<a href="https://www.mapbox.com/privacy/#[WLaCWauc]" target="_blank" title="mapbox">mapbox.com</a>
+						</p>
+
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
+					</div>
+				</div>
 			</div>
-		</div>
-	</div>
-</div> <!-- modal -->
+		</div> <!-- modal -->
+
+		<div class="modal fade" id="help-infobox">
+			<div class=" modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<dt class="modal-title">Help</dt>
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
+					<!-- Modal body -->
+					<div class="modal-body" id="help-infobox-content">
+
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div> <!-- modal -->
 
 </body>
 
