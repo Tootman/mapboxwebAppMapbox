@@ -22,9 +22,9 @@ state.about = {};
 state.about.version = "0.9.049";
 state.about.releaseDate = "5th May 2020";
 state.about.content = `<h4> ORCL Client map</h4><p> Occam's Razor Consulting Ltd, parks and open spaces Asset map</p>
-<p> Displaying: <div id="map-name"></div></p>
+<p> Displaying: <span id="map-name"></span></p>
 <h4> App details </h4>
-<p>Version: ${state.about.version}</p> <p>Released: ${
+<p>Version: ${state.about.version}<br>Released: ${
   state.about.releaseDate
 }</p><p>Website © Occam's Razor Consulting Ltd 2019 <br>Contains Ordnance Survey data © Crown copyright and database right 2013
 </p>`;
@@ -275,8 +275,8 @@ const addToolsToNav = () => {
   //  ".mapbox-gl-draw_ctrl-draw-btn"
   //);
   const toolsDropdownEl = document.getElementById("tools-dropdown");
-  toolsDropdownEl.innerHTML = `<div><div class="text-info">Demo Experiemental feature</div><hr></div><div class="form-check" id="polygon-measure-chkbox-container">
-          <input type="checkbox" class="form-check-input"
+  toolsDropdownEl.innerHTML = `<div></div><div class="form-check" id="polygon-measure-chkbox-container">
+           <input type="checkbox" class="form-check-input"
           }" id="polygon-measure-tool-chkbox"/>
           <label class="form-check-label" for="polygon-measure-tool-chkbox">Measure Area
   </label>
@@ -302,10 +302,9 @@ const addToolsToNav = () => {
         map.on("draw.delete", updateArea);
         map.on("draw.update", updateArea);
         statsMsgContainerEl.style.display = "block";
-        statsMsgContainerEl.innerHTML = `Use the Rectangular tool button to draw a polygon<br>
-          Close the polygon with Right-Click <br>
-          Delete the polygon using the WasteBin tool button'<br>
-          Note that clicking on a feature is disabled while the Area tool is enabled`;
+        statsMsgContainerEl.innerHTML = `<small>Use the Polygon tool (rectangular button) to draw a polygon<br>
+          <b>Close</b> the polygon with Right-Click <br>
+         <b>Delete</b> the polygon using the Delete tool (Waste Bin button)<small>`;
       } else {
         map.removeControl(draw);
         map.off("draw.create", updateArea);
