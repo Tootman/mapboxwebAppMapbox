@@ -19,8 +19,8 @@ import mapboxgl from "mapbox-gl";
 const state = {};
 state.settings = {};
 state.about = {};
-state.about.version = "0.9.049";
-state.about.releaseDate = "5th May 2020";
+state.about.version = "0.9.050";
+state.about.releaseDate = "8th May 2020";
 state.about.content = `<h4> ORCL Client map</h4><p> Occam's Razor Consulting Ltd, parks and open spaces Asset map</p>
 <p> Displaying: <span id="map-name"></span></p>
 <h4> App details </h4>
@@ -186,6 +186,7 @@ const createGoogleMapLink = lngLat => {
   );
   newlink.setAttribute("text-decoration", "underine");
   newlink.innerHTML = "Link to location in Google Maps";
+  googleMapDiv.innerHTML = "";
   googleMapDiv.appendChild(newlink);
 };
 
