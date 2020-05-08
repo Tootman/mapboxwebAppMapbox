@@ -145,20 +145,48 @@ const addSelectableMapboxLayersToNav = userProfileOb => {
       */
 };
 
+/*
 const myCopyLatLng = e => {
   const myMarkerUrl = `https://www.google.com/maps/place/${
     e.target.lngLat.lat
   }+${e.target.lngLat.lng}`;
+
+
   console.log("inside myCopyLatLng!", myMarkerUrl);
   const inputEl = document.getElementById("myLatLngInput");
   inputEl.value = myMarkerUrl;
   inputEl.select();
+  inputEl.setSelectionRange(0, 99999);
   document.execCommand("copy");
+  alert(
+    "Coordinates copied to clipboard. Now paste url into a browser to view location in Google maps"
+  );
 };
+*/
 
+/*
 const copyLatLng = e => {
   console.log("CopyLatLng!", e);
   myCopyLatLng(e);
+};
+*/
+
+const createGoogleMapLink = lngLat => {
+  const myMarkerUrl = `https://www.google.com/maps/place/${lngLat.lat}+${
+    lngLat.lng
+  }`;
+
+  const googleMapDiv = document.getElementById("google-map-url");
+  const newlink = document.createElement("a");
+  newlink.setAttribute("href", myMarkerUrl);
+  newlink.setAttribute("target", "_blank");
+  newlink.setAttribute(
+    "title",
+    `Open Asset location in Google Maps, in a new window: ${myMarkerUrl}`
+  );
+  newlink.setAttribute("text-decoration", "underine");
+  newlink.innerHTML = "Link to location in Google Maps";
+  googleMapDiv.appendChild(newlink);
 };
 
 const selectNewMapWithAccess = userProfile => {
@@ -235,12 +263,15 @@ const initApp = () => {
       document.getElementById("login-nav-link").title = `Hi ${
         state.userProfile.userName
       }`;
+      /*
       document
         .getElementById("mylatlng")
         .addEventListener("click", function(e) {
           console.log("getLatLng", e);
           myCopyLatLng(e);
         });
+        */
+
       if (state.userProfile.projectinformation != undefined) {
         document.getElementById("project-information-content").innerHTML =
           state.userProfile.projectinformation;
@@ -397,7 +428,8 @@ const attachMapListeners = () => {
     } //else {
     //  photoParentEl.src = "";
     //  }
-    document.getElementById("mylatlng").lngLat = e.lngLat;
+    //document.getElementById("mylatlng").lngLat = e.lngLat;
+    createGoogleMapLink(e.lngLat);
   });
 };
 
