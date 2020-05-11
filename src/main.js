@@ -128,6 +128,10 @@ const addSelectableMapboxLayersToNav = userProfileOb => {
         } else {
           map.setLayoutProperty(e.target.name, "visibility", "none");
         }
+        // close any  parent dropdowns  removing 'show' class
+        Array.from(document.querySelectorAll(".dropdown-menu")).map(i => {
+          i.classList.remove("show");
+        });
       });
   });
 
@@ -343,6 +347,9 @@ const addToolsToNav = () => {
         map.off("draw.delete", updateArea);
         map.off("draw.update", updateArea);
         statsMsgContainerEl.style.display = "none";
+        Array.from(document.querySelectorAll(".dropdown-menu")).map(i => {
+          i.classList.remove("show");
+        });
       }
     });
 };
