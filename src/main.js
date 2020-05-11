@@ -839,7 +839,7 @@ const userLogout = data => {
 };
 
 const retrieveProjectConfig = userProfile => {
-  console.log("retrieved project info from Fb:", userProfile);
+  // console.log("retrieved project info from Fb:", userProfile);
   if (userProfile.projectId == null) {
     console.log("no projectConfig (projectId) found");
     return;
