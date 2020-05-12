@@ -8,6 +8,7 @@ import "bootstrap";
 import "./main.scss";
 import "./mapbox-gl.css";
 import "./mapbox-gl-draw.css";
+// import orclFavicon from "./favicon.png";
 
 import bbox from "@turf/bbox";
 import area from "@turf/area";
@@ -19,8 +20,8 @@ import mapboxgl from "mapbox-gl";
 const state = {};
 state.settings = {};
 state.about = {};
-state.about.version = "0.9.050";
-state.about.releaseDate = "8th May 2020";
+state.about.version = "0.9.051";
+state.about.releaseDate = "12th May 2020";
 state.about.content = `<h4> ORCL Client map</h4><p> Occam's Razor Consulting Ltd, parks and open spaces Asset map</p>
 <p> Displaying: <span id="map-name"></span></p>
 <h4> App details </h4>
@@ -62,7 +63,7 @@ const armIsStyleLoaded = () => {
     //map.setCenter(state.userProfile.center);
     //map.setZoom(state.userProfile.zoom);
     //map.setZoom(11);
-    console.log("Style now loaded");
+    //console.log("Style now loaded");
   } else {
     document.getElementById("loader-spinner-container").style.display =
       "inline";
