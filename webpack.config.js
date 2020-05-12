@@ -12,7 +12,7 @@ module.exports = {
     contentBase: "./dist"
   },
   output: {
-    filename: "dist.js",
+    filename: "dist.[hash].js",
     path: path.resolve(__dirname, "dist")
   },
   module: {
@@ -59,7 +59,7 @@ module.exports = {
     new MiniCssExtractPlugin({
       // Options similar to the same options in webpackOptions.output
       // both options are optional
-      filename: "bundle.css"
+      filename: "bundle.[hash].css"
     }),
     // ,new BundleAnalyzerPlugin()
     new OptimizeCssAssetsPlugin()

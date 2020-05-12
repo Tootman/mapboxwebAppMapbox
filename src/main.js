@@ -20,7 +20,7 @@ import mapboxgl from "mapbox-gl";
 const state = {};
 state.settings = {};
 state.about = {};
-state.about.version = "0.9.051";
+state.about.version = "0.9.052";
 state.about.releaseDate = "12th May 2020";
 state.about.content = `<h4> ORCL Client map</h4><p> Occam's Razor Consulting Ltd, parks and open spaces Asset map</p>
 <p> Displaying: <span id="map-name"></span></p>
